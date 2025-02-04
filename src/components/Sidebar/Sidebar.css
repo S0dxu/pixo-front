@@ -3,6 +3,18 @@
     font-weight: 500;
     flex-direction: column;
     width: 260px;
+    position: fixed;
+    top: 100px;
+    left: 0px;
+    transition: transform 0.25s ease-in-out;
+}
+
+.sidebar.closed {
+    transform: translateX(-300px);
+}
+
+.sidebar.open {
+    transform: translateX(0);
 }
 
 .sidebar ul {

@@ -5,11 +5,11 @@
     transform: translate(-50%, -50%);
     display: flex;
     height: calc(100vh - 50px);
+    border-bottom: 1px solid #fff;
 }
 
 .player img {
     width: 50vh;
-    height:  100%;
     object-fit: cover;
     border-radius: 10px;
     margin-left: 60px;
@@ -25,7 +25,6 @@
 .player .player-with-all-the-fucking-other-stuff img {
     height: calc(100vh - 50px);
     background: linear-gradient(to bottom, #ffffff, #dadada) !important;
-    border: 1px solid #eee;
 }
 
 .player .player-with-all-the-fucking-other-stuff .gradient-overlay {
@@ -144,7 +143,6 @@
 
 .player .default {
     position: absolute;
-    background-color: red;
     opacity: .3;
     top: 50%;
     left: calc(50% - 30px);

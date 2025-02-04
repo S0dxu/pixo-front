@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import logo from '../../assets/pixo2.png';
 import not from '../../assets/notification-alarm-bell-svgrepo-com.svg';
 import profileimg from '../../assets/profileimg.png';
+import Sidebar from '../Sidebar/Sidebar';
 
 const Navbar = () => {
     const loc = useLocation();
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
     return (
         <div className="navbar">
             <div className="left">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24">
+                <svg onClick={toggleSidebar} xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24">
                     <path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"></path>
                 </svg>
                 <img src={logo} />
@@ -32,6 +39,8 @@ const Navbar = () => {
                 </div>
                 <img className='profile-pic' src={profileimg} alt="" />
             </div>
+
+            <Sidebar isOpen={isSidebarOpen} />
         </div>
     );
 }

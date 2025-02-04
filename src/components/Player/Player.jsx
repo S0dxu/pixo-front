@@ -98,7 +98,7 @@ const Player = () => {
             <div className="player-with-all-the-fucking-other-stuff">
                 <div ref={imageRef}>
                     {imageUrl ? (
-                        <img src={imageUrl} className={isScrolling ? "scroll-to" : ""} />
+                        <img src={imageUrl} className={`img-url ${isScrolling ? "scroll-to" : ""}`} />
                     ) : (
                         <img src="https://webgradients.com/public/webgradients_png/052%20Kind%20Steel.png" alt="" />
                     )}
