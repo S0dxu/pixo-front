@@ -1,0 +1,105 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    color: rgb(0, 0, 0);
+    padding: 40px 30px 15px;
+    margin-top: -20px; 
+    z-index: 99;
+}
+
+.navbar li {
+    cursor: pointer;
+    list-style: none;
+}
+
+.navbar svg {
+    width: 24px;
+    height: 24px;
+    fill: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.navbar .left,
+.navbar .right {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar img {
+    height: 30px;
+}
+
+.navbar .create-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eeeeee;
+    padding: 0 15px;
+    cursor: pointer;
+    border-radius: 100px;
+    height: 35px;
+    text-decoration: none;
+    color: #000;
+}
+
+.navbar .create-btn svg,
+.navbar .create-btn p {
+    position: relative;
+    font-size: 15px;
+}
+
+.navbar .create-btn svg {
+    margin-left: -8px;
+    margin-right: 5px;
+}
+
+.navbar .notify {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0px !important;
+}
+
+.navbar .notify span {
+    background-color: #e1002d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 17px;
+    top: 0px;
+}
+
+.navbar .notify img {
+    width: 24px;
+}
+
+.navbar .profile-pic {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+}
+
+.navbar svg:hover,
+.navbar .create-btn:hover,
+.navbar .notify:hover {
+    background-color: #dadada;
+}
+
+.navbar svg,
+.navbar .notify {
+    padding: 6px;
+    margin: 0 -6px;
+    border-radius: 100%;
+} 

@@ -1,0 +1,149 @@
+/* Main wrapper container */
+.explore {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 20px;
+    top: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Wrap for all the images and content */
+.explore .player-with-all-the-fucking-other-stuff {
+    width: 100%;
+    max-width: 1200px; /* Optional: limit max width for large screens */
+    margin: 0 auto;
+}
+
+/* Grid layout to display 4 images in 2x2 format */
+.explore .images-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 20px; /* Space between images */
+    margin-top: 20px;
+}
+
+/* Style for individual image containers */
+.explore .image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Add a zoom effect when the user hovers over the image */
+.explore .image-container:hover {
+    transform: scale(1.05);
+}
+
+/* Gradient overlay effect on the image */
+.explore .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+    z-index: 1;
+}
+
+/* Image style */
+.explore .image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: opacity 0.5s ease;
+}
+
+/* Text and info under the image */
+.explore .image-container p {
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+/* Add the scrolling effect when the user is scrolling */
+.explore .scroll-to {
+    opacity: 0.5;
+    transform: translateY(20px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Add a strong text animation effect when scrolling */
+.explore .scroll-to-1000 {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Placeholder for when images are loading */
+.explore .placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+}
+
+/* Default background for the page */
+.explore .default {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Style for profile image and icons */
+.explore .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.explore .profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Player controls */
+.explore .player-controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+/* Each control item (like like, comment, save) */
+.explore .player-controls li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #555;
+    cursor: pointer;
+}
+
+.explore .player-controls li svg {
+    margin-right: 5px;
+}
+
+/* Styling for buttons when hovered */
+.explore .player-controls li:hover {
+    color: #000;
+}
+
+.explore .player-controls .save {
+    fill: #ff6347; /* Optional: Change to color of your choice */
+}

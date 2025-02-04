@@ -1,0 +1,219 @@
+.upload {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    padding: 30px;
+    left: 300px;
+    width: calc(100vw - 400px);
+}
+
+.upload .image-result {
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 4px solid #0be09b;
+}
+
+.upload .image-result .left h1 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: -10px;
+}
+
+.upload .image-result .left p {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #008568;
+    font-weight: 400;
+    margin-bottom: 0px;
+}
+
+.upload .image-result .right {
+    text-decoration: none;
+}
+
+.upload .image-result .right p {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: #000;
+    background-color: #f2f2f2;
+    padding: 7px 10px;
+    margin: 0px;
+    border-radius: 7px;
+}
+
+.no-up {
+    color: #e41b45 !important;
+    margin-top: 10px !important;
+    font-weight: 500 !important;
+}
+
+.up-to {
+    border-color: #e41b45 !important;
+}
+
+.upload .description {
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 350px);
+}
+
+.upload h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.upload .description h3 {
+    font-size: 15px;
+    font-weight: 500;
+    top: -20px;
+    position: relative;
+}
+
+.custom-input {
+    width: calc(100% - 30px);
+    height: 100px;
+    border: none;
+    background-color: #f2f2f2;
+    padding: 10px 15px;
+    font-size: 15px;
+    outline: none;
+    resize: none;
+    border-radius: 5px;
+    position: relative;
+    top: -20px;
+    font-family: "Poppins";
+    position: relative;
+}
+
+.input-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.upload .tags {
+    margin: -30px 0 20px 0;
+    display: flex;
+}
+
+.upload input {
+    border: none;
+    background-color: #f2f2f2;
+    padding: 10px 15px;
+    font-family: "Poppins";
+    border-radius: 5px 0 0 5px;
+    border-right: 1px solid #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+.upload button {
+    background-color: red;
+    border: none;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 40px;
+    font-family: "Poppins";
+    border-radius: 0 5px 5px 0;
+    border-left: 1px solid #ffffff;
+}
+
+.char-count {
+    position: absolute;
+    bottom: 35px;
+    right: 10px;
+    font-size: 12px;
+    color: gray;
+}
+
+.hashtags {
+    display: flex;
+    font-size: 15px;
+    font-weight: 500;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.hashtags span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    background: #f2f2f2;
+    border-radius: 5px;
+    padding: 4px 20px 4px 4px !important;
+}
+
+.hashtags .remove {
+    color: #e41b45;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 4px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hashtags svg {
+    width: 20px;
+    height: 20px;
+    fill: #e41b45;
+}
+
+.upload .phone-cnt {
+    position: absolute;
+    top: 205px;
+    right: 30px;
+}
+
+.upload .phone {
+    width: 280px;
+    position: relative;
+    z-index: 2;
+}
+
+.upload .img {
+    width: 274px;
+    height: 570px;
+    border-radius: 60px;
+    object-fit: cover;
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 3px);
+    transform: translate(-50%, -50%);
+}
+
+.upload .post-bnt {
+    background-color: #e41b45;
+    width: 170px;
+    color: #fff;
+    margin-top: 30px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 7px;
+    padding: 5px;
+    transition: .1s ease;
+}
+
+.upload .post-bnt:hover {
+    background-color: #cc143c;
+}

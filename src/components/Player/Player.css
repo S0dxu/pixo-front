@@ -1,0 +1,259 @@
+.player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    height: calc(100vh - 50px);
+}
+
+.player img {
+    width: 50vh;
+    height:  100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-left: 60px;
+    cursor: pointer;
+}
+
+.player .player-with-all-the-fucking-other-stuff {
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.player .player-with-all-the-fucking-other-stuff img {
+    height: calc(100vh - 50px);
+    background: linear-gradient(to bottom, #ffffff, #dadada) !important;
+    border: 1px solid #eee;
+}
+
+.player .player-with-all-the-fucking-other-stuff .gradient-overlay {
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    left: 60px;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, .5));
+}
+
+.player .player-with-all-the-fucking-other-stuff p {
+    color: #fff;
+    position: absolute;
+    bottom: 0px;
+    font-size: 14px;
+    left: 70px;
+}
+
+.player .player-with-all-the-fucking-other-stuff strong {
+    font-weight: 500;
+}
+
+.player .profile span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    bottom: -8px;
+    position: absolute;
+}
+
+.player span svg {
+    fill: #fff;
+}
+
+.player li {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.player li p {
+    font-size: 13px;
+    text-align: center;
+    font-weight: 500;
+    color: #2c2c2c;
+}
+
+.player .player-controls img {
+    width: 24px;
+    margin: 0;
+}
+
+.player li svg {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 100%;
+    margin-bottom: -10px !important;
+}
+
+.player .player-controls {
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    margin-left: 10px;
+    margin-bottom: -20px;
+}
+
+.player .profile {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.player .profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.player .profile span {
+    background-color: #e1002d;
+    color: #fff;
+}
+
+.player svg {
+    width: 24px;
+    height: 24px;
+    fill: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.player li svg:hover,
+.player img:hover {
+    background-color: #dadada ;
+}
+
+.scroll-to {
+    animation: scroll-to .3s ease;
+}
+
+.scroll-to-1000 {
+    animation: scroll-to-1000 .3s ease;
+}
+
+.player .default {
+    position: absolute;
+    background-color: red;
+    opacity: .3;
+    top: 50%;
+    left: calc(50% - 30px);
+    border: 1px solid #eee;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes scroll-to {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes scroll-to-1000 {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-290%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@media (max-width: 600px) {
+    .player .player-controls {
+        position: absolute;
+        bottom: 10px;
+        right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .player.player-controls svg {
+        margin-top: 5px;
+    }
+
+    .player .player-controls p {
+        margin-top: 0px;
+    }
+
+    .player .player-controls li {
+        margin-bottom: -10px;
+    }
+
+    .player .player-controls svg,
+    .player .player-controls .save path {
+        background-color: transparent !important;
+        fill: #fff !important;
+    }
+
+    .player .player-controls p {
+        color: #fff;
+    }
+
+    .player .default {
+        margin-left: 30px;
+    }
+
+    .player .gradient-overlay {
+        margin-left: -60px;
+        border-radius: 0;
+    }
+
+    .player img {
+        margin: 0;
+    }
+
+    .player .player-with-all-the-fucking-other-stuff p {
+        left: 10px;
+    }
+}
+
+@media (max-width: 490px) {
+    .player .player-with-all-the-fucking-other-stuff img {
+        width: 100vw;
+        height: calc(100vh - 50px);
+        border-radius: 0;
+    }
+
+    .player .default {
+        display: none;
+    }
+    
+    .player {
+        top: 0;
+        transform: translateY(0);
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0;
+    }
+
+    .player .gradient-overlay {
+        border-radius: 0 !important;
+    }
+
+/*     .mobile {
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        background-color: red;
+        width: 100%;
+    } */
+}
