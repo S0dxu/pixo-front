@@ -7,6 +7,9 @@ const Explore = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [lastLoadedDate, setLastLoadedDate] = useState(null);
+    const [history, setHistory] = useState([]);  // Stack delle immagini viste
+    const [currentIndex, setCurrentIndex] = useState(-1);  // Indice attuale nell'array history
+
 
     const fetchImages = async () => {
         setLoading(true);
@@ -15,18 +18,24 @@ const Explore = () => {
             if (lastLoadedDate) {
                 url += `?before=${lastLoadedDate}`;
             }
-
+    
             const response = await fetch(url);
-            if (!response.ok) throw new Error("Error fetching images");
-
+            if (!response.ok) throw new Error("error fetching images");
+    
             const data = await response.json();
-
+    
             if (data.length > 0) {
-                setImages((prevImages) => [...prevImages, ...data]);
+                setImages((prevImages) => {
+                    const uniqueImages = [...prevImages, ...data].filter((item, index, self) =>
+                        index === self.findIndex((t) => t._id === item._id)
+                    );
+                    return uniqueImages;
+                });
+    
                 setLastLoadedDate(data[data.length - 1].date);
             }
         } catch (error) {
-            console.error("Error:", error);
+            console.error("error:", error);
         } finally {
             setLoading(false);
         }
@@ -41,7 +50,7 @@ const Explore = () => {
             const scrollPosition = window.scrollY + window.innerHeight;
             const bottomPosition = document.documentElement.scrollHeight;
 
-            if (!loading && scrollPosition >= bottomPosition - 100) {
+            if (!loading && scrollPosition >= bottomPosition - 1000) {
                 fetchImages();
             }
         };
