@@ -1,10 +1,10 @@
 import React from 'react';
+import Player from '../../components/Player/Player';
 
 const Home = () => {
   return (
     <div>
-      <h1>For You Page</h1>
-      <p>Contenuto personalizzato per te!</p>
+      <Player />
     </div>
   );
 };

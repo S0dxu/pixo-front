@@ -64,7 +64,7 @@ const Explore = () => {
 
     return (
         <div className="explore">
-            <div className="player-with-all-the-fucking-other-stuff">
+            {/* <div className="player-with-all-the-fucking-other-stuff">
                 <div className="images-grid">
                     {images.length > 0 ? (
                         images.map((image, index) => (
@@ -82,7 +82,7 @@ const Explore = () => {
                         <></>
                     )}
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };
