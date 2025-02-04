@@ -36,7 +36,7 @@ const Player = () => {
     const fetchRandomImage = async () => {
         setLoading(true);
         try {
-            const response = await fetch("https://pixo-backend-version-1-0.onrender.com/get-random-image");
+            const response = await fetch("https://pixo-backend-version-1-0-peho.onrender.com/get-random-image");
             if (!response.ok) throw new Error("error fetching image");
 
             const data = await response.json();
