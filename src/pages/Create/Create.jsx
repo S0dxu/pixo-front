@@ -61,7 +61,7 @@ const Create = () => {
         }
     }
     
-    const clientId = "3b4fd0382862345";
+    const clientId = "3b4fd0382862345"; // before the official publish remember to put this in a .env
     
 
     return (

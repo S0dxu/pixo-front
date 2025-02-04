@@ -4,16 +4,16 @@ import './Explore.css';
 import placeholder from '../../assets/placeholder.png';
 
 const Explore = () => {
-    const [images, setImages] = useState([]); // Array to hold multiple images
+    const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [lastLoadedDate, setLastLoadedDate] = useState(null); // Track the last loaded image's date
+    const [lastLoadedDate, setLastLoadedDate] = useState(null);
 
     const fetchImages = async () => {
         setLoading(true);
         try {
-            let url = "http://localhost:5000/get-images";
+            let url = "https://pixo-backend-version-1-0-peho.onrender.com/get-images";
             if (lastLoadedDate) {
-                url += `?before=${lastLoadedDate}`; // Fetch images before the last loaded date
+                url += `?before=${lastLoadedDate}`;
             }
 
             const response = await fetch(url);
@@ -21,10 +21,8 @@ const Explore = () => {
 
             const data = await response.json();
 
-            // If we have new images, append them
             if (data.length > 0) {
                 setImages((prevImages) => [...prevImages, ...data]);
-                // Set the date of the last image loaded for the next request
                 setLastLoadedDate(data[data.length - 1].date);
             }
         } catch (error) {
@@ -35,15 +33,15 @@ const Explore = () => {
     };
 
     useEffect(() => {
-        fetchImages(); // Load the initial set of images
-    }, []); // Trigger on initial render
+        fetchImages();
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY + window.innerHeight;
             const bottomPosition = document.documentElement.scrollHeight;
 
-            if (!loading && scrollPosition >= bottomPosition - 100) { // Trigger when near the bottom
+            if (!loading && scrollPosition >= bottomPosition - 100) {
                 fetchImages();
             }
         };
