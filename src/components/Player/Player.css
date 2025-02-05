@@ -270,3 +270,10 @@
         width: 100%;
     } */
 }
+
+.player .desc {
+    max-width: calc(100% - 80px) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}

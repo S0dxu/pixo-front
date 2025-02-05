@@ -116,7 +116,7 @@ const Player = () => {
                         <img src="https://webgradients.com/public/webgradients_png/052%20Kind%20Steel.png" alt="" />
                     )}
                     <div className={`gradient-overlay ${isScrolling ? "scroll-to" : ""}`}></div>
-                    <p className={isScrolling ? "scroll-to-1000" : ""}>
+                    <p className={` desc ${isScrolling ? "scroll-to-1000" : ""}`}>
                         {author || "-"} · {formattedDate} <br />
                         {title} <strong>{tags}</strong> <br />
                         ♫ {songname} - {songartist} <br />
