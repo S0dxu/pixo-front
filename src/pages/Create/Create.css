@@ -127,3 +127,33 @@
         width: calc(100% - 40px);
     }
 }
+
+@media (max-width: 600px) {
+    .create {
+        position: relative;
+        top: 0px;
+        padding: 10px;
+        margin: 10px;
+        height: calc(100vh - 160px);
+        border: none;
+        width: calc(100vw - 40px);
+    }
+
+    .create .drop-area {
+        height: 20vh !important;
+        margin-top: 60px;
+    }
+
+    .create .drop-area img {
+        display: none;
+    }
+
+    .create .drop-area .upload-btn {
+        margin-bottom: 20px;
+    }
+
+    .create .helping-instructions {
+        display: flex;
+        flex-direction: column;
+    }
+}

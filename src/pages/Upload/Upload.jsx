@@ -164,7 +164,7 @@ const Upload = () => {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
-                        <div className="char-count">0/4000</div>
+                        <div className="char-count">{title.length}/4000</div>
                     </div>
                     <h3>Hashtags</h3>
                     <div className="input-container tags">

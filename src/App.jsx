@@ -11,7 +11,7 @@ import MobileNavbar from './components/MobileNavbar/MobileNavbar';
 import { useEffect } from "react";
 
 function App() {
-  useEffect(() => {
+/*   useEffect(() => {
     const preventPullToRefresh = (e) => {
       if (window.scrollY === 0) {
         e.preventDefault();
@@ -23,7 +23,7 @@ function App() {
     return () => {
       document.removeEventListener("touchmove", preventPullToRefresh);
     };
-  }, []);
+  }, []); */
   return (
     <Router>
       <Navbar />
