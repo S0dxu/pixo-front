@@ -76,7 +76,7 @@ const Upload = () => {
                 tags: hashtags 
             }
 
-            const response = await fetch("https://pixo-backend-version-1-0-peho.onrender.com/upload-image", {
+            const response = await fetch("https://pixo-backend-version-1-2.onrender.com/upload-image", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

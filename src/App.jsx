@@ -36,6 +36,8 @@ function App() {
           <Route path="/activity" element={<Explore />} />
           <Route path="/create" element={<Create />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/profile" element={<Explore />} />
+          <Route path="/:id" element={<Player />} />
         </Routes>
       </div>
       {/* <Player /> */}
