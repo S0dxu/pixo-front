@@ -15,11 +15,6 @@
     fill: #bebebe;
 }
 
-.mobilenavbar .sidebar-link {
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-}
-
 .mobilenavbar .active svg,
 .mobilenavbar .active g {
     fill: white !important;
