@@ -17,18 +17,19 @@ const Player = () => {
     const [lastScrollTime, setLastScrollTime] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
+    
     const imageRef = useRef(null);
+    let lastTouchY = 0;
+
     const formattedDate = date ? (() => {
         const publishedDate = new Date(date);
         const hoursDifference = differenceInHours(new Date(), publishedDate);
         
-        if (hoursDifference == 0) {
-            return 'now'
-        }
-        else if (hoursDifference < 24) {
-            return `${hoursDifference}h ago`
-        }
-        else {
+        if (hoursDifference === 0) {
+            return 'now';
+        } else if (hoursDifference < 24) {
+            return `${hoursDifference}h ago`;
+        } else {
             return format(publishedDate, 'MM-dd');
         }
     })() : "-";
@@ -37,7 +38,7 @@ const Player = () => {
         setLoading(true);
         try {
             const response = await fetch("https://pixo-backend-version-1-0-peho.onrender.com/get-random-image");
-            if (!response.ok) throw new Error("error fetching image");
+            if (!response.ok) throw new Error("Error fetching image");
 
             const data = await response.json();
             setImageUrl(data.url);
@@ -48,7 +49,7 @@ const Player = () => {
             setSongartist(data.songartist);
             setTags(tagsHandler(data.tags));
         } catch (error) {
-            console.error("error:", error);
+            console.error("Error:", error);
         } finally {
             setLoading(false);
         }
@@ -61,15 +62,12 @@ const Player = () => {
     const tagsHandler = (tags) => {
         return tags.map(tag => `#${tag}`).join(' ');  
     };
-    
 
-    const handleWheel = (event) => {
+    const handleScroll = () => {
         const currentTime = Date.now();
         if (currentTime - lastScrollTime >= 1000) {
             const imagePosition = imageRef.current.getBoundingClientRect();
-            const isAboveImage = event.clientY >= imagePosition.top && event.clientY <= imagePosition.bottom;
-
-            if (isAboveImage && !loading && !isAnimating) {
+            if (!loading && !isAnimating) {
                 setIsScrolling(true);
                 setIsAnimating(true);
 
@@ -80,16 +78,31 @@ const Player = () => {
 
                 setLastScrollTime(currentTime);
                 setTimeout(() => setIsScrolling(false), 600);
-                event.preventDefault();
             }
         }
     };
 
+    const handleWheel = (event) => {
+        handleScroll();
+        event.preventDefault();
+    };
+
+    const handleTouchMove = (event) => {
+        const touchY = event.touches[0].clientY;
+        if (Math.abs(touchY - lastTouchY) > 50) {
+            handleScroll();
+        }
+        lastTouchY = touchY;
+        event.preventDefault();
+    };
+
     useEffect(() => {
         window.addEventListener("wheel", handleWheel, { passive: false });
+        window.addEventListener("touchmove", handleTouchMove, { passive: false });
 
         return () => {
             window.removeEventListener("wheel", handleWheel);
+            window.removeEventListener("touchmove", handleTouchMove);
         };
     }, [loading, lastScrollTime]);
 

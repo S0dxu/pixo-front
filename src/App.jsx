@@ -7,8 +7,23 @@ import Explore from './pages/Explore/Explore';
 import Home from './pages/Home/Home';
 import Create from './pages/Create/Create';
 import Upload from './pages/Upload/Upload';
+import MobileNavbar from './components/MobileNavbar/MobileNavbar';
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const preventPullToRefresh = (e) => {
+      if (window.scrollY === 0) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener("touchmove", preventPullToRefresh, { passive: false });
+
+    return () => {
+      document.removeEventListener("touchmove", preventPullToRefresh);
+    };
+  }, []);
   return (
     <Router>
       <Navbar />
@@ -24,6 +39,7 @@ function App() {
         </Routes>
       </div>
       {/* <Player /> */}
+      <MobileNavbar />
     </Router>
   );
 }
