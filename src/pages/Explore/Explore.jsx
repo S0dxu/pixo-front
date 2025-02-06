@@ -14,7 +14,7 @@ const Explore = () => {
     const fetchImages = async () => {
         setLoading(true);
         try {
-            let url = "https://pixo-backend-version-1-0-peho.onrender.com/get-images";
+            let url = "https://pixo-backend-version-1-2.onrender.com/get-images";
             if (lastLoadedDate) {
                 url += `?before=${lastLoadedDate}`;
             }

@@ -89,9 +89,9 @@ function AuthHandler() {
     if (!isAuthenticated && location.pathname !== "/login" && location.pathname !== "/register") {
       navigate("/login");
     }
-    /* else if (isAuthenticated && (location.pathname === "/login" || location.pathname === "/register")) {
+    else if (isAuthenticated && (location.pathname === "/login" || location.pathname === "/register")) {
       navigate("/foryou");
-    } */
+    }
   }, [isAuthenticated, location.pathname, navigate]);
 
   return null;
