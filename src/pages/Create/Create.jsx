@@ -8,7 +8,7 @@ const Create = () => {
     const [error, setError] = useState("");
     const fileInputRef = useRef(null);
 
-    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
 
     const handleFileSelect = (event) => {
         const selectedFile = event.target.files[0];
@@ -33,7 +33,7 @@ const Create = () => {
             setError("");
         } else {
             setFile(null);
-            setError("Format not supported. Use PNG, JPG, JPEG or WEBP.");
+            setError("Format not supported. Use PNG, JPG or JPEG.");
         }
     };
    
@@ -57,7 +57,7 @@ const Create = () => {
         if (data.success) {
             return data.data.link;
         } else {
-            return "Error uploading image";
+            return "error uploading image";
         }
     }
     

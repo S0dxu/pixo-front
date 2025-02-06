@@ -1,0 +1,128 @@
+.login {
+    position: absolute;
+    top: calc(50% - 100px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login img {
+    width: 80px;
+    position: relative;
+    left: 50%;
+    margin-top: 30px;
+    transform: translateX(-50%);
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 10px;
+    left: 50%;
+    margin-top: 60px;
+    position: relative;
+    transform: translateX(-50%);
+}
+
+.login form input,
+.login form button {
+    height: 35px;
+    font-family: "Poppins";
+    padding: 0 5px;
+    font-size: 12px;
+    border: 1px solid #dbdbdb;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    outline: none;
+}
+
+.login form button {
+    background-color: #e41b45;
+    border-color: #e41b45;
+    margin-top: 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.login .left {
+    width: 280px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+}
+
+.login .left .cover {
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    position: relative;
+}
+
+.login .left .content {
+    width: 264px;
+    border-radius: 42px;
+    left: 8px;
+    top: 10px !important;
+    height: 590px;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    background-color: black;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+    width: 300px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
+
+.divider:not(:empty)::before {
+    margin-right: 10px;
+}
+
+.divider:not(:empty)::after {
+    margin-left: 10px;
+}
+
+.divider-text {
+    font-size: 14px;
+    color: #808080;
+}
+
+.login p {
+    text-align: center;
+    font-size: 14px;
+}
+
+.login p a {
+    color: #e41b45;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login .error-message {
+    color: #e41b1b;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+@media (max-width: 400px) {
+    .login form,
+    .divider {
+        width: calc(100vw - 20px) !important;
+    }
+}

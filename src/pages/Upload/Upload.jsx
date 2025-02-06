@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import "./Upload.css";
 import phone from "./../../assets/mockup_apple_iphone_15_2023_734f0b8418.png"
 
@@ -15,6 +16,7 @@ const Upload = () => {
     const [songname, setSongname] = useState("");
     const [songartist, setSongartist] = useState("");
     const [tags, setTags] = useState("");
+
     const formattedDate = date ? (() => {
         const publishedDate = new Date(date);
         const hoursDifference = differenceInHours(new Date(), publishedDate);
@@ -63,20 +65,33 @@ const Upload = () => {
             addHashtag();
         }
     };
+    
+    const getUsernameFromToken = () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                return decodedToken?.username || "";
+            } catch (error) {
+                console.error("Error while decoding token:", error);
+            }
+        }
+        return "";
+    };
 
     const sendToMainFunc = async () => {
         try {
             const data = {
                 url: link,
-                author: "author",
+                author: getUsernameFromToken(),
                 date: date,
                 title: title,
-                songname: "songname",
-                songartist: "songartist",
+                songname: "MALA",
+                songartist: "6ix9ine",
                 tags: hashtags 
             }
 
-            const response = await fetch("https://pixo-backend-version-1-2.onrender.com/upload-image", {
+            const response = await fetch("http://localhost:5000/upload-image", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

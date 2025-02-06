@@ -130,23 +130,25 @@ const Player = () => {
     };
 
     const handleWheel = (event) => {
-        handleScroll();
+        if (event.deltaY > 0) {
+            handleScroll();
+        }
         event.preventDefault();
     };
-
+    
     const handleTouchMove = (event) => {
         const touchY = event.touches[0].clientY;
-        if (Math.abs(touchY - lastTouchY) > 150) {
+        if (touchY > lastTouchY + 150) {
             handleScroll();
         }
         lastTouchY = touchY;
         event.preventDefault();
     };
-
+    
     useEffect(() => {
         window.addEventListener("wheel", handleWheel, { passive: false });
         window.addEventListener("touchmove", handleTouchMove, { passive: false });
-
+    
         return () => {
             window.removeEventListener("wheel", handleWheel);
             window.removeEventListener("touchmove", handleTouchMove);
@@ -205,8 +207,8 @@ const Player = () => {
                     <svg className='save' viewBox="0 0 24 24" fill="#" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.75 3.25H8.24999C7.52064 3.25 6.82117 3.53973 6.30545 4.05546C5.78972 4.57118 5.49999 5.27065 5.49999 6V20C5.49898 20.1377 5.53587 20.2729 5.60662 20.391C5.67738 20.5091 5.77926 20.6054 5.90112 20.6695C6.02298 20.7335 6.16012 20.7627 6.2975 20.754C6.43488 20.7453 6.56721 20.6989 6.67999 20.62L12 16.91L17.32 20.62C17.4467 20.7063 17.5967 20.7516 17.75 20.75C17.871 20.7486 17.9903 20.7213 18.1 20.67C18.2203 20.6041 18.3208 20.5072 18.3911 20.3894C18.4615 20.2716 18.499 20.1372 18.5 20V6C18.5 5.27065 18.2103 4.57118 17.6945 4.05546C17.1788 3.53973 16.4793 3.25 15.75 3.25Z" fill="#000000"></path> </g></svg>
                     <p>5</p>
                 </li>
-                <li className='share' onClick={toggleVisibility}>
-                    <svg fill="#00ff00" height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
+                <li className='share'>
+                    <svg onClick={toggleVisibility} fill="#00ff00" height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
                         <g>
                             <path className="st0" d="M512,230.431L283.498,44.621v94.807C60.776,141.244-21.842,307.324,4.826,467.379 c48.696-99.493,149.915-138.677,278.672-143.14v92.003L512,230.431z"></path>
                         </g>

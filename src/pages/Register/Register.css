@@ -1,0 +1,15 @@
+.register .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-top: 1px solid transparent;
+    margin-top: 10px;
+    width: 300px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+}
