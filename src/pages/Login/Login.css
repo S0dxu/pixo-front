@@ -123,6 +123,6 @@
 @media (max-width: 400px) {
     .login form,
     .divider {
-        width: calc(100vw - 20px) !important;
+        width: calc(100vw - 80px) !important;
     }
 }
