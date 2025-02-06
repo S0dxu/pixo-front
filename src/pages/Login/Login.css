@@ -26,7 +26,7 @@
 
 .login form input,
 .login form button {
-    height: 35px;
+    height: 40px;
     font-family: "Poppins";
     padding: 0 5px;
     font-size: 12px;
@@ -42,7 +42,7 @@
     margin-top: 10px;
     color: white;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
 }
 
@@ -123,6 +123,6 @@
 @media (max-width: 400px) {
     .login form,
     .divider {
-        width: calc(100vw - 80px) !important;
+        width: calc(100vw - 60px) !important;
     }
 }
