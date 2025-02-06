@@ -77,7 +77,8 @@
     align-items: center;
     text-align: center;
     margin: 0;
-    margin-top: 10px;
+    border-top: 1px solid transparent;
+    margin-top: 20px;
     width: 300px;
 }
 
@@ -104,6 +105,7 @@
 .login p {
     text-align: center;
     font-size: 14px;
+    margin-top: 20px;
 }
 
 .login p a {
