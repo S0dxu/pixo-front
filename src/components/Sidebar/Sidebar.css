@@ -4,9 +4,13 @@
     flex-direction: column;
     width: 260px;
     position: fixed;
-    top: 100px;
+    top: 60px;
     left: 0px;
     transition: transform 0.25s ease-in-out;
+}
+
+.sidebar svg {
+    background-color: transparent !important;
 }
 
 .sidebar.closed {
@@ -16,6 +20,13 @@
 .sidebar.open {
     transform: translateX(0);
 }
+
+/* .sidebar .profile-svg svg {
+    margin-left: -5px;
+    position: relative;
+    left: 3px;
+    fill: #000 !important;
+} */
 
 .sidebar ul {
     flex-direction: column;
