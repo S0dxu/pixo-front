@@ -174,7 +174,7 @@ const Player = () => {
                 <img className='default' src="https://png.pngtree.com/thumb_back/fh260/background/20201226/pngtree-simple-beige-gradient-background-image_515340.jpg" />
             </div>
             <div className="player-controls">
-                <div className='profile'>
+                <div className='profile-icon'>
                     <img src={random} />
                     <span>
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">

@@ -51,7 +51,7 @@
     font-weight: 500;
 }
 
-.player .profile span {
+.player .profile-icon span {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,23 +102,22 @@
     margin-bottom: -16px;
 }
 
-.player .profile {
+.player .profile-icon {
     display: flex;
     flex-direction: column;
     position: relative;
     align-items: center;
-    left: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
-.player .profile img {
+.player .profile-icon img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
-.player .profile span {
+.player .profile-icon span {
     background-color: #e1002d;
     color: #fff;
 }
@@ -276,10 +275,6 @@
         margin-bottom: 5px;
     }
 
-    .player .profile {
-        left: 22px;
-    }
-
     .message-box {
         width: calc(100vw - 100px) !important;
     }
@@ -302,7 +297,7 @@
         height: 30px!important;
     }
 
-    .player .profile img {
+    .player .profile-icon img {
         width: 45px;
         height: 45px;
         border: 1px solid #fff;
