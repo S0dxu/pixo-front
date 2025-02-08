@@ -67,6 +67,7 @@ function App() {
           <Route path="/" element={<Navigate to="/foryou" />} />
           <Route path="/foryou" element={<ForYou />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/activity" element={<Explore />} />
           <Route path="/create" element={<Create />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/profile" element={<Profile />} />
