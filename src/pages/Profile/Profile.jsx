@@ -43,9 +43,15 @@ const Profile = () => {
         navigate(`/${id}`);
     };
 
+    const logout  = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    }
+
     return (
         <div className='profile'>
             <div className="top">
+                <button className="logout" onClick={logout()}>Log Out</button>
                 <img src="https://media.istockphoto.com/id/1320815200/photo/wall-black-background-for-design-stone-black-texture-background.jpg?s=612x612&w=0&k=20&c=hqcH1pKLCLn_ZQ5vUPUfi3BOqMWoBzbk5-61Xq7UMsU=" alt="" />
                 <div className="right">
                     <h4>{getUsernameFromToken()}</h4>
