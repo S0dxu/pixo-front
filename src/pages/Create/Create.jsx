@@ -24,17 +24,11 @@ const Create = () => {
     const validateFile = (file) => {
         if (file && allowedTypes.includes(file.type)) {
             setFile(file);
-            uploadImage(file, clientId).then(response => {
-                if (response && response.data && response.data.link) {
-                    const link = response.data.link;
-                    console.log(link);
-                    navigate("./../upload", { state: { file, link } });
-                } else {
-                    setError("Error while image")
-                }
+            uploadImage(file, clientId).then(link => {
+                console.log(link);
+                navigate("./../upload", { state: { file, link } });
             }).catch(error => {
                 console.error("error uploading image:", error);
-                setError("Error while image")
             });
             setError("");
         } else {
