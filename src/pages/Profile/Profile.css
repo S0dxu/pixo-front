@@ -92,6 +92,7 @@
     color: #000000;
     font-weight: 400;
     cursor: pointer;
+    z-index: 200;
     font-size: 14px;
     font-family: "poppins";
 }
