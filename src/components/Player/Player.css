@@ -317,12 +317,18 @@
 
     .player .player-controls svg,
     .player .player-controls .save path {
-        background-color: transparent !important;
         fill: #fff !important;
+        background-color: transparent !important;
+        background: radial-gradient(circle, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0) 80%);
+    }
+
+    .player .player-controls .profile-icon svg {
+        background-color: transparent !important;
     }
 
     .player .player-controls p {
         color: #fff;
+        margin-top: 10px;
     }
 
     .player .default {

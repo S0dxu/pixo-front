@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { format, differenceInHours } from 'date-fns';
 import './Player.css';
 import placeholder from '../../assets/placeholder.png';
@@ -7,6 +7,7 @@ import comments from '../../assets/svgviewer-png-output (2).png';
 import random from '../../assets/d4667c5475734c188fd2738e446bde0b~c5_1080x1080.jpeg';
 
 const Player = () => {
+    const navigate = useNavigate();
     const [imageUrl, setImageUrl] = useState("");
     const [author, setAuthor] = useState("");
     const [date, setDate] = useState("");
@@ -133,6 +134,11 @@ const Player = () => {
         }
     };
 
+    const takeToUser = () => {
+        console.log(author)
+        navigate(`/profile/${author}`)
+    };
+
     const handleWheel = (event) => {
         if (event.deltaY > 0) {
             handleScroll();
@@ -179,7 +185,7 @@ const Player = () => {
             </div>
             <div className="player-controls">
                 <div className='profile-icon'>
-                    <img src={random} />
+                    <img onClick={takeToUser} /* src={random} */ src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg" />
                     <span>
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
                             <g id="SVGRepo_iconCarrier">

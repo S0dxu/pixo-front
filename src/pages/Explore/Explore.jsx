@@ -4,7 +4,7 @@ import './Explore.css';
 import placeholder from '../../assets/placeholder.png';
 
 const Explore = () => {
-    const [images, setImages] = useState([]);
+    /* const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [lastLoadedDate, setLastLoadedDate] = useState(null);
     const [history, setHistory] = useState([]);  // Stack delle immagini viste
@@ -69,7 +69,7 @@ const Explore = () => {
         if (hoursDifference === 0) return 'now';
         else if (hoursDifference < 24) return `${hoursDifference}h ago`;
         else return format(publishedDate, 'MM-dd');
-    };
+    }; */
 
     return (
         <div className="explore">

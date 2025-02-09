@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import './Profile.css';
+import { useNavigate, useParams } from "react-router-dom";
+import "./Profile.css";
 import { jwtDecode } from "jwt-decode";
 
 const Profile = () => {
+    const { username } = useParams();
     const [images, setImages] = useState([]);
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
-
+    const [isOwner, setIsOwner] = useState(false);
+    const [error, setError] = useState(false);
+    
     const getUsernameFromToken = () => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -21,41 +25,63 @@ const Profile = () => {
     };
 
     useEffect(() => {
-        const fetchUserImages = async () => {
-            try {
-                const username = getUsernameFromToken();
-                if (!username) return;
-
-                const response = await fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-images/${username}`);
-                if (!response.ok) throw new Error("Error retrieving images");
-
-                const data = await response.json();
-                setImages(data);
-            } catch (error) {
-                console.error("Errore:", error);
-            }
+        const currentUsername = getUsernameFromToken();
+        if (currentUsername === username) {
+          setIsOwner(true);
+        } else {
+          setIsOwner(false);
+        }
+    }, [username]);
+    useEffect(() => {
+        if (!username) return;
+      
+        const fetchData = async () => {
+          try {
+            const [userResponse, imagesResponse] = await Promise.all([
+              fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-by-id/profile/${username}`),
+              fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-images/${username}`)
+            ]);
+            setError(false);
+            if (!userResponse.ok) {
+                setError(true);
+                return;
+            };
+            
+            setUser(await userResponse.json());
+            setImages(await imagesResponse.json());
+          } catch (error) {
+            console.error("Error:", error);
+          }
         };
-
-        fetchUserImages();
-    }, []);
-
-    const goToPlayer = (id) => {
-        navigate(`/${id}`);
+      
+        fetchData();
+      }, [username, navigate]);
+    
+    if (error) {
+        return <div className="user-not-found">
+            <p><svg width="90" data-e2e="" height="90" viewBox="0 0 72 72" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M16.6276 20.2241C16.6276 30.8074 25.2394 39.4192 35.8227 39.4192C46.4059 39.4192 55.0178 30.8074 55.0178 20.2241C55.0178 9.64086 46.4059 1.02899 35.8227 1.02899C25.2394 1.02899 16.6276 9.64086 16.6276 20.2241ZM19.7405 20.2244C19.7405 11.3583 26.9568 4.14202 35.8229 4.14202C44.689 4.14202 51.9053 11.3583 51.9053 20.2244C51.9053 29.0905 44.689 36.3068 35.8229 36.3068C26.9568 36.3068 19.7405 29.0905 19.7405 20.2244Z"></path><path d="M6.69813 70.9717C6.56844 70.9717 6.43874 70.9562 6.30904 70.9199C5.47898 70.7072 4.97576 69.8563 5.19365 69.0263C8.79922 55.045 21.3954 45.2762 35.8228 45.2762C50.2503 45.2762 62.8465 55.0398 66.4572 69.0211C66.6699 69.8512 66.1719 70.702 65.3366 70.9147C64.5014 71.1326 63.6558 70.6293 63.4379 69.7941C60.1851 57.1876 48.8288 48.3837 35.8176 48.3837C22.8117 48.3837 11.4554 57.1876 8.19743 69.7941C8.02104 70.5048 7.39331 70.9717 6.69813 70.9717Z"></path></svg></p>
+            <h1>This account cannot be found</h1>
+        </div>;
+    }
+    
+    const goToPlayer = (imageId) => {
+        navigate(`/${imageId}`);
     };
 
-    const logout  = () => {
+    const logout = () => {
         localStorage.removeItem("token");
-        window.location.reload();
         navigate("/login");
-    }
+    };
+
+    if (!user) return <></>;
 
     return (
-        <div className='profile'>
+        <div className="profile">
             <div className="top">
-                <button className="logout" onClick={logout}>Log Out</button>
+                <button className={`logout ${!isOwner ? 'invisible-logout-button' : ''}`} onClick={logout}>Log Out</button>
                 <img src="https://media.istockphoto.com/id/1320815200/photo/wall-black-background-for-design-stone-black-texture-background.jpg?s=612x612&w=0&k=20&c=hqcH1pKLCLn_ZQ5vUPUfi3BOqMWoBzbk5-61Xq7UMsU=" alt="" />
                 <div className="right">
-                    <h4>{getUsernameFromToken()}</h4>
+                    <h4>{user.username}</h4>
                     <li>
                         <p><strong>0</strong> Following</p>
                         <p><strong>0</strong> Followers</p>

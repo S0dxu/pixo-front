@@ -85,6 +85,7 @@
 
 .profile .logout {
     position: absolute;
+    display: block;
     top: 0px;
     right: 0px;
     border: none;
@@ -95,6 +96,32 @@
     z-index: 200;
     font-size: 14px;
     font-family: "poppins";
+}
+
+.profile .invisible-logout-button {
+    display: none !important;
+}
+
+.user-not-found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: calc(100vh - 300px);
+}
+
+.user-not-found svg {
+    fill: #777;
+    width: 60px;
+    height: 60px;
+}
+
+.user-not-found h1 {
+    margin-top: -10px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
 }
 
 @media (max-width: 1200px) {
