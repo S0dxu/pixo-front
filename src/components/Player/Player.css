@@ -319,7 +319,7 @@
     .player .player-controls .save path {
         fill: #fff !important;
         background-color: transparent !important;
-        background: radial-gradient(circle, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0) 80%);
+        background: radial-gradient(circle, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0) 60%);
     }
 
     .player .player-controls .profile-icon svg {
