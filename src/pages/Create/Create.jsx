@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import "./Create.css";
 import { useNavigate } from 'react-router-dom';
+import load from "./../../assets/loading-animation.svg"
 
 const Create = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [file, setFile] = useState(null);
     const [error, setError] = useState("");
     const fileInputRef = useRef(null);
@@ -22,10 +24,12 @@ const Create = () => {
     };
 
     const validateFile = (file) => {
+        setLoading(true);
         if (file && allowedTypes.includes(file.type)) {
             setFile(file);
             uploadImage(file, clientId).then(link => {
                 console.log(link);
+                setLoading(false);
                 navigate("./../upload", { state: { file, link } });
             }).catch(error => {
                 console.error("error uploading image:", error);
@@ -34,6 +38,7 @@ const Create = () => {
         } else {
             setFile(null);
             setError("Format not supported. Use PNG, JPG or JPEG.");
+            setLoading(false);
         }
     };
    
@@ -63,6 +68,9 @@ const Create = () => {
     
     const clientId = "3b4fd0382862345"; // before the official publish remember to put this in a .env
     
+    if (loading) return <div className="loading-screen-animation">
+        <img src={load} alt="" />
+    </div>;
 
     return (
         <div 

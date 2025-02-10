@@ -12,11 +12,15 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import MobileNavbar from "./components/MobileNavbar/MobileNavbar";
 import Profile from "./pages/Profile/Profile";
+import ScrollToTop from "./components/Other/ScrollToTop";
+import Zoom from "./components/Other/Zoom";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   return (
     <Router>
+      <ScrollToTop />
+      <Zoom />
       <Navbar />
       <Sidebar />
       <AuthHandler />

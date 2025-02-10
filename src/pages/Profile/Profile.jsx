@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Profile.css";
 import { jwtDecode } from "jwt-decode";
+import load from "./../../assets/loading-animation.svg"
 
 const Profile = () => {
     const { username } = useParams();
@@ -73,7 +74,9 @@ const Profile = () => {
         navigate("/login");
     };
 
-    if (!user) return <></>;
+    if (!user) return <div className="loading-screen-animation">
+        <img src={load} alt="" />
+    </div>;
 
     return (
         <div className="profile">

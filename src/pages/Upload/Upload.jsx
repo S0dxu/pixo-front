@@ -3,10 +3,12 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "./Upload.css";
 import phone from "./../../assets/mockup_apple_iphone_15_2023_734f0b8418.png"
+import load from "./../../assets/loading-animation.svg"
 
 const Upload = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const file = location.state?.file || null;
     const link = location.state?.link || null;
     const [imageUrl, setImageUrl] = useState("");
@@ -80,6 +82,7 @@ const Upload = () => {
     };
 
     const sendToMainFunc = async () => {
+        setLoading(true);
         try {
             const data = {
                 url: link,
@@ -104,9 +107,14 @@ const Upload = () => {
             console.log(responseData);
             navigate("./../foryou");
         } catch (error) {
+            setLoading(false);
             console.error("error:", error);
         }
     };
+
+    if (loading) return <div className="loading-screen-animation">
+        <img src={load} alt="" />
+    </div>;
 
     return (
         <div className="upload">

@@ -41,3 +41,8 @@
   color: #888;
 }
  */
+
+ html {
+  zoom: 100% !important;
+  touch-action: manipulation !important;
+}
