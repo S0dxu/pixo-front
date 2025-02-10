@@ -175,6 +175,11 @@
         height: 150px;
     }
 
+    .user-not-found h1 {
+        font-size: 16px;
+        font-weight: 400;
+    }    
+
     .profile .bottom {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
