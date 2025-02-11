@@ -174,11 +174,6 @@ const Player = () => {
 
     const youtubeVideoId = getYouTubeVideoId(songlink);
 
-    const onPlayerReady = (event) => {
-        event.target.setVolume(20);
-        event.target.playVideo();
-    };
-
     return (
         <div className="player">
             <div className="player-with-all-the-fucking-other-stuff">
@@ -250,13 +245,12 @@ const Player = () => {
             </div>
             <iframe 
                 id="videoPlayer" 
-                width="500" 
-                height="500" 
+                width="0"
+                height="0"
                 frameBorder="0" 
                 allow="autoplay; encrypted-media" 
                 allowFullScreen 
                 src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`}
-                onLoad={(e) => onPlayerReady(e)}
             ></iframe>
         </div>
     );
