@@ -172,7 +172,7 @@ const Player = () => {
         return videoId ? videoId.split('&')[0] : '';
     };
 
-    const youtubeVideoId = songlink ? getYouTubeVideoId(songlink) : '';
+    const youtubeVideoId = getYouTubeVideoId(songlink);
 
     return (
         <div className="player">
