@@ -168,8 +168,11 @@ const Player = () => {
     }, [loading, lastScrollTime]);
 
     const getYouTubeVideoId = (url) => {
-        const videoId = url.split('v=')[1];
-        return videoId ? videoId.split('&')[0] : '';
+        if (url) {
+            const videoId = url.split('v=')[1];
+            return videoId ? videoId.split('&')[0] : '';
+        }
+        return '';
     };
 
     const youtubeVideoId = getYouTubeVideoId(songlink);
