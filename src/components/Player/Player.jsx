@@ -110,6 +110,7 @@ const Player = () => {
         } else {
             fetchRandomImage();
         }
+        console.log(`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`)
     }, [id]);
 
     const tagsHandler = (tags) => {
@@ -244,8 +245,8 @@ const Player = () => {
             </div>
             <iframe 
                 id="videoPlayer" 
-                width="0" 
-                height="0" 
+                width="500" 
+                height="500" 
                 frameBorder="0" 
                 allow="autoplay; encrypted-media" 
                 allowFullScreen 
