@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "./Upload.css";
-import phone from "./../../assets/mockup_apple_iphone_15_2023_734f0b8418.png"
-import load from "./../../assets/loading-animation.svg"
+import phone from "./../../assets/mockup_apple_iphone_15_2023_734f0b8418.png";
+import load from "./../../assets/loading-animation.svg";
 
 const Upload = () => {
     const location = useLocation();
@@ -16,18 +16,50 @@ const Upload = () => {
     const [date, setDate] = useState("");
     const [title, setTitle] = useState("");
     const [songname, setSongname] = useState("");
-    const [songartist, setSongartist] = useState("");
+    const [songlink, setSonglink] = useState("");
     const [tags, setTags] = useState("");
+    const [videoLink, setVideoLink] = useState("");
+    const [videoTitle, setVideoTitle] = useState("");
+    
+    const handleSongNameChange = (e) => {
+        setSongname(e.target.value);
+    };
+
+    const searchYouTube = () => {
+        const API_KEY = 'AIzaSyD19EDuWMwQgwdm5Vxzid8GWMo2vWuhuA4';
+        const title = songname;
+        const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(title)}&key=${API_KEY}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.items && data.items.length > 0) {
+                    const videoId = data.items[0].id.videoId;
+                    const videoName = data.items[0].snippet.title;
+                    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                    setVideoLink(videoUrl);
+                    setVideoTitle(videoName);
+                } else {
+                    setVideoLink('No video found');
+                    setVideoTitle('');
+                }
+            })
+            .catch(error => {
+                setVideoLink('Error fetching data');
+                setVideoTitle('');
+                console.error(error);
+            });
+    };
 
     const formattedDate = date ? (() => {
         const publishedDate = new Date(date);
         const hoursDifference = differenceInHours(new Date(), publishedDate);
-        
+
         if (hoursDifference == 0) {
-            return 'now'
+            return 'now';
         }
         else if (hoursDifference < 24) {
-            return `${hoursDifference}h ago`
+            return `${hoursDifference}h ago`;
         }
         else {
             return format(publishedDate, 'MM-dd');
@@ -67,7 +99,7 @@ const Upload = () => {
             addHashtag();
         }
     };
-    
+
     const getUsernameFromToken = () => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -89,9 +121,9 @@ const Upload = () => {
                 author: getUsernameFromToken(),
                 date: date,
                 title: title,
-                songname: "MALA",
-                songartist: "6ix9ine",
-                tags: hashtags 
+                songname: videoTitle,
+                songlink: videoLink,
+                tags: hashtags
             }
 
             const response = await fetch("https://pixo-backend-version-1-2.onrender.com/upload-image", {
@@ -212,6 +244,20 @@ const Upload = () => {
                                 #{hashtag}
                             </span>
                         ))}
+                    </div>
+                    <h3>Music</h3>
+                    <div className="input-container">
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={songname}
+                            onChange={handleSongNameChange}
+                        />
+                        <button className="check-val" onClick={searchYouTube}>Check</button>
+                        <p className="link-yt">
+                            {videoLink && <a href={videoLink} target="_blank" rel="noopener noreferrer">{videoLink}</a>} <br />
+                            {videoTitle}
+                        </p>
                     </div>
                 </div>
             </div>
