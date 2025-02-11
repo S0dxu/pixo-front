@@ -254,6 +254,7 @@ const Player = () => {
                 allow="autoplay; encrypted-media" 
                 allowFullScreen 
                 src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`}
+                style={{ pointerEvents: 'none' }}
             ></iframe>
         </div>
     );
