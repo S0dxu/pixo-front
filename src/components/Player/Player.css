@@ -110,6 +110,11 @@
     margin-bottom: 40px;
 }
 
+.player audio {
+    width: 0;
+    height: 0;
+}
+
 .player .profile-icon img {
     width: 40px;
     height: 40px;

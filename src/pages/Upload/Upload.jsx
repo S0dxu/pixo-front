@@ -125,7 +125,9 @@ const Upload = () => {
                 songlink: videoLink,
                 tags: hashtags
             }
-
+    
+            console.log('Sending data:', data);
+    
             const response = await fetch("https://pixo-backend-version-1-2.onrender.com/upload-image", {
                 method: "POST",
                 headers: {
@@ -134,7 +136,7 @@ const Upload = () => {
                 body: JSON.stringify(data)
             })
             if (!response.ok) throw new Error("Error sending data");
-
+    
             const responseData = await response.json();
             console.log(responseData);
             navigate("./../foryou");
@@ -143,6 +145,7 @@ const Upload = () => {
             console.error("error:", error);
         }
     };
+    
 
     if (loading) return <div className="loading-screen-animation">
         <img src={load} alt="" />

@@ -20,7 +20,7 @@ const Player = () => {
     const [isScrolling, setIsScrolling] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
-    let song = '';
+    const audioRef = useRef(null);
 
     const toggleVisibility = () => {
     setIsVisible(!isVisible);
@@ -60,6 +60,7 @@ const Player = () => {
             setTags(tagsHandler(data.tags));
             setTextToCopy(`https://pixo-v1.netlify.app/${data._id}`);
             console.log("ID:", data._id);
+            console.log(songlink)
         } catch (error) {
             console.error("another error :", error); // type shit
         } finally {
@@ -110,7 +111,6 @@ const Player = () => {
         } else {
             fetchRandomImage();
         }
-        console.log(`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`)
     }, [id]);
 
     const tagsHandler = (tags) => {
@@ -167,15 +167,23 @@ const Player = () => {
         };
     }, [loading, lastScrollTime]);
 
-    const getYouTubeVideoId = (url) => {
-        if (url) {
-            const videoId = url.split('v=')[1];
-            return videoId ? videoId.split('&')[0] : '';
-        }
-        return '';
-    };
-
-    const youtubeVideoId = getYouTubeVideoId(songlink);
+    useEffect(() => {
+        const playAudio = async () => {
+            if (audioRef.current && songlink) {
+                audioRef.current.src = songlink;
+                audioRef.current.volume = 0.02;
+                try {
+                    await audioRef.current.play();
+                } catch (error) {
+                    console.error("Playback error:", error);
+                }
+            } else {
+                audioRef.current?.pause();
+            }
+        };
+    
+        playAudio();
+    }, [songlink]);
 
     return (
         <div className="player">
@@ -246,16 +254,9 @@ const Player = () => {
                     <button className="copy-button" onClick={handleCopy}><svg fill="#000000" viewBox="0 0 36 36" version="1.1" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>copy-line</title> <path d="M29.5,7h-19A1.5,1.5,0,0,0,9,8.5v24A1.5,1.5,0,0,0,10.5,34h19A1.5,1.5,0,0,0,31,32.5V8.5A1.5,1.5,0,0,0,29.5,7ZM29,32H11V9H29Z" className="clr-i-outline clr-i-outline-path-1"></path><path d="M26,3.5A1.5,1.5,0,0,0,24.5,2H5.5A1.5,1.5,0,0,0,4,3.5v24A1.5,1.5,0,0,0,5.5,29H6V4H26Z" className="clr-i-outline clr-i-outline-path-2"></path> <rect x="0" y="0" width="36" height="36" fillOpacity="0"></rect> </g></svg></button>
                 </div>
             </div>
-            <iframe 
-                id="videoPlayer" 
-                width="0"
-                height="0"
-                frameBorder="0" 
-                allow="autoplay; encrypted-media" 
-                allowFullScreen 
-                src={`https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1`}
-                style={{ pointerEvents: 'none' }}
-            ></iframe>
+            <audio ref={audioRef} controls autoPlay >
+                <source src={songlink} type="audio/mp3" />
+            </audio>
         </div>
     );
 }
