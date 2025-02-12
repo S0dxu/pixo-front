@@ -20,6 +20,7 @@ const Upload = () => {
     const [tags, setTags] = useState("");
     const [videoLink, setVideoLink] = useState("");
     const [videoTitle, setVideoTitle] = useState("");
+    const [selectedSong, setSelectedSong] = useState(null);
     
     const songsList = [
         { title: "Ransom", link: "https://www.soundboard.com/track/download/1052113" },
@@ -37,6 +38,7 @@ const Upload = () => {
     const handleSongSelect = (song) => {
         setSongname(song.title);
         setSonglink(song.link);
+        setSelectedSong(song);
     };
 
     const formattedDate = date ? (() => {
@@ -239,17 +241,17 @@ const Upload = () => {
                             </span>
                         ))}
                     </div>
-                    <h3>Music</h3>
                     <div className="song">
-                        <p>Song:</p>
+                        <h3>Music: {songname}</h3>
                         <div className="songs-list">
                             {songsList.map((song, index) => (
                                 <div key={index} className="song-option" onClick={() => handleSongSelect(song)}>
-                                    <p>{song.title}</p>
+                                    <p className={`song-option ${selectedSong?.title === song.title ? "song-active" : ""}`}>
+                                        {song.title}
+                                    </p>
                                 </div>
                             ))}
                         </div>
-                        <p>Selected Song: {songname}</p>
                     </div>
                 </div>
             </div>

@@ -205,6 +205,26 @@
     transform: translate(-50%, -50%);
 }
 
+.upload .song {
+    margin-top: 40px;
+}
+
+.upload .song-option {
+    margin-top: -10px;
+    font-size: 15px;
+}
+
+.upload .song-option p {
+    display: inline-block;
+    padding: 3px 0;
+}
+
+.upload .song-active {
+    padding: 3px 10px !important;
+    border-bottom: 1px solid #b8b8b8;
+    border-top: 1px solid #b8b8b8;
+}
+
 .upload .post-bnt {
     background-color: #e41b45;
     width: 170px;
