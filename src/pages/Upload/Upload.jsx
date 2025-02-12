@@ -21,34 +21,22 @@ const Upload = () => {
     const [videoLink, setVideoLink] = useState("");
     const [videoTitle, setVideoTitle] = useState("");
     
-    const handleSongNameChange = (e) => {
-        setSongname(e.target.value);
-    };
+    const songsList = [
+        { title: "Ransom", link: "https://www.soundboard.com/track/download/1052113" },
+        { title: "Wake Me Up", link: "https://www.soundboard.com/track/download/976130" },
+        { title: "Without Me", link: "https://www.soundboard.com/track/download/986791" },
+        { title: "Levitating", link: "https://www.soundboard.com/track/download/1109990" },
+        /* { title: "Uptown Funk", link: "https://www.soundboard.com/track/download/" },
+        { title: "Stay", link: "https://www.soundboard.com/track/download/" },
+        { title: "Blinding Lights", link: "https://www.soundboard.com/track/download/" },
+        { title: "Peaches", link: "https://www.soundboard.com/track/download/" },
+        { title: "Save Your Tears", link: "https://www.soundboard.com/track/download/" },
+        { title: "Watermelon Sugar", link: "https://www.soundboard.com/track/download/" } */
+    ];
 
-    const searchYouTube = () => {
-        const API_KEY = 'AIzaSyD19EDuWMwQgwdm5Vxzid8GWMo2vWuhuA4';
-        const title = songname;
-        const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(title)}&key=${API_KEY}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.items && data.items.length > 0) {
-                    const videoId = data.items[0].id.videoId;
-                    const videoName = data.items[0].snippet.title;
-                    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-                    setVideoLink(videoUrl);
-                    setVideoTitle(videoName);
-                } else {
-                    setVideoLink('No video found');
-                    setVideoTitle('');
-                }
-            })
-            .catch(error => {
-                setVideoLink('Error fetching data');
-                setVideoTitle('');
-                console.error(error);
-            });
+    const handleSongSelect = (song) => {
+        setSongname(song.title);
+        setSonglink(song.link);
     };
 
     const formattedDate = date ? (() => {
@@ -121,10 +109,10 @@ const Upload = () => {
                 author: getUsernameFromToken(),
                 date: date,
                 title: title,
-                songname: videoTitle,
-                songlink: videoLink,
+                songname: songname,
+                songlink: songlink,
                 tags: hashtags
-            }
+            };
     
             console.log('Sending data:', data);
     
@@ -134,17 +122,20 @@ const Upload = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            })
+            });
+    
             if (!response.ok) throw new Error("Error sending data");
     
             const responseData = await response.json();
             console.log(responseData);
+
             navigate("./../foryou");
         } catch (error) {
             setLoading(false);
-            console.error("error:", error);
+            console.error("Error:", error);
         }
     };
+    
     
 
     if (loading) return <div className="loading-screen-animation">
@@ -249,18 +240,16 @@ const Upload = () => {
                         ))}
                     </div>
                     <h3>Music</h3>
-                    <div className="input-container">
-                        <input
-                            type="text"
-                            placeholder="Title"
-                            value={songname}
-                            onChange={handleSongNameChange}
-                        />
-                        <button className="check-val" onClick={searchYouTube}>Check</button>
-                        <p className="link-yt">
-                            {videoLink && <a href={videoLink} target="_blank" rel="noopener noreferrer">{videoLink}</a>} <br />
-                            {videoTitle}
-                        </p>
+                    <div className="song">
+                        <p>Song:</p>
+                        <div className="songs-list">
+                            {songsList.map((song, index) => (
+                                <div key={index} className="song-option" onClick={() => handleSongSelect(song)}>
+                                    <p>{song.title}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <p>Selected Song: {songname}</p>
                     </div>
                 </div>
             </div>

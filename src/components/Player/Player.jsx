@@ -171,7 +171,7 @@ const Player = () => {
         const playAudio = async () => {
             if (audioRef.current && songlink) {
                 audioRef.current.src = songlink;
-                audioRef.current.volume = 0.02;
+                /* audioRef.current.volume = 0.02; */
                 try {
                     await audioRef.current.play();
                 } catch (error) {
