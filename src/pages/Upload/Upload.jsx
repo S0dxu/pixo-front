@@ -20,9 +20,9 @@ const Upload = () => {
     const [tags, setTags] = useState("");
     const [videoLink, setVideoLink] = useState("");
     const [videoTitle, setVideoTitle] = useState("");
-    const [selectedSong, setSelectedSong] = useState(null);
     
     const songsList = [
+        { title: "None", link: ""},
         { title: "Ransom", link: "https://www.soundboard.com/track/download/1052113" },
         { title: "Wake Me Up", link: "https://www.soundboard.com/track/download/976130" },
         { title: "Without Me", link: "https://www.soundboard.com/track/download/986791" },
@@ -34,6 +34,8 @@ const Upload = () => {
         { title: "Save Your Tears", link: "https://www.soundboard.com/track/download/" },
         { title: "Watermelon Sugar", link: "https://www.soundboard.com/track/download/" } */
     ];
+
+    const [selectedSong, setSelectedSong] = useState(songsList[0]);
 
     const handleSongSelect = (song) => {
         setSongname(song.title);
@@ -214,8 +216,9 @@ const Upload = () => {
                             placeholder="Share more about your image here..."
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            maxLength={200}
                         />
-                        <div className="char-count">{title.length}/4000</div>
+                        <div className="char-count">{title.length}/200</div>
                     </div>
                     <h3>Hashtags</h3>
                     <div className="input-container tags">
@@ -242,10 +245,11 @@ const Upload = () => {
                         ))}
                     </div>
                     <div className="song">
-                        <h3>Music: {songname}</h3>
+                        <h3>Music</h3>
                         <div className="songs-list">
                             {songsList.map((song, index) => (
                                 <div key={index} className="song-option" onClick={() => handleSongSelect(song)}>
+                                    <svg viewBox="0 0 72 72" id="emoji" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="color"> <circle cx="36" cy="36" r="22" fill="#3F3F3F" stroke="none" stroke-miterlimit="10" stroke-width="2"></circle> <circle cx="36" cy="36" r="12.7559" fill="#9B9B9A" stroke="none" stroke-miterlimit="10" stroke-width="2"></circle> </g> <g id="hair"></g> <g id="skin"></g> <g id="skin-shadow"></g> <g id="line"> <circle cx="36" cy="36" r="22" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"></circle> <circle cx="36" cy="36" r="12.7559" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"></circle> </g> </g></svg>
                                     <p className={`song-option ${selectedSong?.title === song.title ? "song-active" : ""}`}>
                                         {song.title}
                                     </p>

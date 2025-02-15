@@ -209,9 +209,23 @@
     margin-top: 40px;
 }
 
+.upload .song h3 {
+    margin: -10px 0;
+}
+
 .upload .song-option {
     margin-top: -10px;
     font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.upload .song-option svg {
+    width: 20px;
+    height: 20px;
+    top: -12px;
+    position: relative;
 }
 
 .upload .song-option p {
@@ -219,10 +233,15 @@
     padding: 3px 0;
 }
 
+.upload p {
+    color: #777;
+}
+
 .upload .song-active {
-    padding: 3px 10px !important;
+    /* padding: 3px 10px !important;
     border-bottom: 1px solid #b8b8b8;
-    border-top: 1px solid #b8b8b8;
+    border-top: 1px solid #b8b8b8; */
+    color: #000;
 }
 
 .upload .post-bnt {
