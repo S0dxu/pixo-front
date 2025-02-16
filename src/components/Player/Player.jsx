@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { format, differenceInHours } from 'date-fns';
 import './Player.css';
+import { jwtDecode } from "jwt-decode";
 import placeholder from '../../assets/placeholder.png';
 import comments from '../../assets/svgviewer-png-output (2).png';
 import random from '../../assets/d4667c5475734c188fd2738e446bde0b~c5_1080x1080.jpeg';
@@ -23,20 +24,21 @@ const Player = () => {
     const [isVisible2, setIsVisible2] = useState(false);
     const audioRef = useRef(null);
     const [views, setViews] = useState(0);
+    const [currentImageId, setCurrentImageId] = useState("");
+    const [likes, setLikes] = useState(0);
+    const [isLiked, setIsLiked] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState("");
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
-        if (setIsVisible2(false)) {
-            toggleVisibility2(true);
-        }
+        setIsVisible2(false);
     };
     
     const toggleVisibility2 = () => {
         setIsVisible2(!isVisible2);
-        if (setIsVisible(false)) {
-            toggleVisibility(true);
-        }
-    };
+        setIsVisible(false);
+    };      
     
     const { id } = useParams();
     
@@ -72,6 +74,8 @@ const Player = () => {
             setTags(tagsHandler(data.tags));
             setViews(data.views);
             setTextToCopy(`https://pixo-v1.netlify.app/${data._id}`);
+            setCurrentImageId(data._id);
+            setLikes(data.likes);
             console.log("ID:", data._id);
             console.log(songlink)
         } catch (error) {
@@ -98,6 +102,8 @@ const Player = () => {
             setSonglink(data.songlink);
             setTags(tagsHandler(data.tags));
             setViews(data.views);
+            setCurrentImageId(data._id);
+            setLikes(data.likes);
             setTextToCopy(`https://pixo-v1.netlify.app/${data._id}`);
 
             console.log("Fetched image _id:", data._id);
@@ -108,6 +114,7 @@ const Player = () => {
             setLoading(false);
         }
     };
+
     const handleCopy = () => {
         console.log(textToCopy);
         const textArea = document.createElement("textarea");
@@ -189,7 +196,7 @@ const Player = () => {
                 try {
                     await audioRef.current.play();
                 } catch (error) {
-                    console.error("Playback error:", error);
+                    console.error("playback error:", error);
                 }
             } else {
                 audioRef.current?.pause();
@@ -198,6 +205,67 @@ const Player = () => {
     
         playAudio();
     }, [songlink]);
+
+    const getUserIdFromToken = () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                console.log(decodedToken);
+                return decodedToken?.id || "";
+            } catch (error) {
+                console.error("no id found:", error);
+            }
+        }
+        return "";
+    };
+
+    const handleLike = async () => {
+        const userId = getUserIdFromToken();
+        const imageId = currentImageId;
+        
+        if (!imageId || !userId) {
+            alert("User ID or Image ID is missing");
+            return;
+        }
+      
+        try {
+            const imageResponse = await fetch(`https://pixo-backend-version-1-2.onrender.com/image/${imageId}`);
+            if (!imageResponse.ok) {
+                const errorText = await imageResponse.text();
+                console.error("Image fetch error:", errorText);
+                alert("Unable to retrieve image data");
+                return;
+            }
+            const imageData = await imageResponse.json();
+      
+            const isLiked = imageData.likes.includes(userId);
+      
+            const url = isLiked ? "https://pixo-backend-version-1-2.onrender.com/dislike-image" : "https://pixo-backend-version-1-2.onrender.com/like-image";
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ imageId, userId }),
+            });
+      
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Error response:", errorText);
+                alert("Something went wrong. Please try again.");
+                return;
+            }
+      
+            const data = await response.json();
+            setLikes(data.likes); 
+            setIsLiked(!isLiked);
+        } catch (error) {
+            console.error("Error handling like/dislike:", error);
+            alert("An error occurred. Please try again later.");
+        }
+    };
+      
 
     return (
         <div className="player">
@@ -230,14 +298,14 @@ const Player = () => {
                     </span>
                 </div>
                 <li>
-                    <svg className='like' width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <svg /* className={`like ${isLiked ? "liked" : ""}`} */ className='like' onClick={handleLike} width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#HeartFill_clip0)">
                             <g filter="url(#HeartFill_filter0_d)">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M7.5 2.25C10.5 2.25 12 4.25 12 4.25C12 4.25 13.5 2.25 16.5 2.25C20 2.25 22.5 4.99999 22.5 8.5C22.5 12.5 19.2311 16.0657 16.25 18.75C14.4095 20.4072 13 21.5 12 21.5C11 21.5 9.55051 20.3989 7.75 18.75C4.81949 16.0662 1.5 12.5 1.5 8.5C1.5 4.99999 4 2.25 7.5 2.25Z"></path>
                             </g>
                         </g>
                     </svg>
-                    <p>0</p>
+                    <p>{likes}</p>
                 </li>
                 <li>
                     <svg fill="#000000" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -260,6 +328,11 @@ const Player = () => {
                     <p></p>
                 </li>
             </div>
+
+            {/* <div className="comments">
+
+            </div> */}
+
             <div className={`message-box ${isVisible ? 'show' : ''}`}>
                 <p>Share</p>
                 <button className="close-button" onClick={e => { e.stopPropagation(); setIsVisible(false); }}><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z" fill="#0F0F0F"></path> </g></svg></button>
@@ -274,7 +347,7 @@ const Player = () => {
                 <button className="close-button" onClick={e => { e.stopPropagation(); setIsVisible2(false); }}><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z" fill="#0F0F0F"></path> </g></svg></button>
                 <div className="flex-cnt">
                     <li>
-                        <h5>0</h5>
+                        <h5>{likes}</h5>
                         <p>Likes</p>
                     </li>
                     <li>
@@ -293,6 +366,7 @@ const Player = () => {
                     <p>{tags}</p>
                 </div>
             </div>
+
             <audio ref={audioRef} controls autoPlay >
                 <source src={songlink} type="audio/mp3" />
             </audio>
