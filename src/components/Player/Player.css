@@ -186,7 +186,7 @@
     bottom: -50px;
     left: calc( 50% - 5px);
     transform: translateX(-50%);
-    padding: 10px 20px;
+    padding: 10px 20px 0 20px;
     background-color: #fff;
     color: black;
     border-radius: 5px;
@@ -357,6 +357,28 @@
         margin-bottom: 5px;
     }
 
+    .player {
+        top: 0;
+        transform: translateY(0);
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0;
+    }
+
+    .player .player-with-all-the-fucking-other-stuff img {
+        width: 100vw;
+        height: calc(100dvh - 50px);
+        border-radius: 0;
+    }
+
+    .player .gradient-overlay {
+        border-radius: 0 !important;
+    }
+
+    .message-box.show {
+        bottom: 10px;
+    }
+
     .message-box {
        left: 50%;
     }
@@ -371,7 +393,7 @@
     }
 
     .player {
-        height: calc(100dvh -50px);
+        height: calc(100dvh - 50px);
     }
 
     .player svg {
@@ -434,12 +456,12 @@
 @media (max-width: 490px) {
     .player .player-with-all-the-fucking-other-stuff img {
         width: 100vw;
-        height: calc(100dvh -50px);
+        height: calc(100dvh - 50px);
         border-radius: 0;
     }
 
     .message-box {
-        width: calc(100vw - 100px) !important;
+        width: calc(100vw - 60px) !important;
     }
 
     .player .default {
