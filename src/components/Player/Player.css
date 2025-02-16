@@ -223,6 +223,11 @@
     animation: scroll-to-1000 .3s ease;
 }
 
+.opacity0 {
+    opacity: 0;
+    transition: .1s ease;
+}
+
 .player .default {
     position: absolute;
     opacity: .3;
@@ -426,6 +431,11 @@
         bottom: 10px;
         right: 5px;
         margin-bottom: 5px;
+    }
+
+    .opacity0-2 {
+        opacity: 0;
+        transition: .1s ease;
     }
 
     .player .player-volume {

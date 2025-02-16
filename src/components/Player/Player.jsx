@@ -30,7 +30,10 @@ const Player = () => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [audio, setAudio] = useState(1);
-
+    const pressTimer = useRef(null);
+    const [isLongPress, setIsLongPress] = useState(false);
+    const [IsOpacity, setOpacity] = useState(false);
+    
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
         setIsVisible2(false);
@@ -39,7 +42,53 @@ const Player = () => {
     const toggleVisibility2 = () => {
         setIsVisible2(!isVisible2);
         setIsVisible(false);
-    };      
+    };
+
+    const handleToggleMute = () => {
+        if (audioRef.current) {
+            if (audioRef.current.volume > 0) {
+                sessionStorage.setItem('savedVolume', audio.toString());
+                setAudio(0);
+                audioRef.current.volume = 0;
+            } else {
+                const savedVolume = sessionStorage.getItem('savedVolume');
+                const newVolume = savedVolume ? parseFloat(savedVolume) : 1;
+                setAudio(newVolume);
+                audioRef.current.volume = newVolume;
+            }
+        }
+    };
+
+    const handleLongPressStart = () => {
+        setOpacity(true)
+        setIsLongPress(true);
+    };
+
+    const handleLongPressEnd = () => {
+        setOpacity(false)
+        setIsLongPress(false);
+    };
+
+    const handleMouseDown = () => {
+        setIsLongPress(false);
+        pressTimer.current = setTimeout(() => {
+            handleLongPressStart();
+            setIsLongPress(true);
+        }, 500);
+    };
+
+    const handleMouseUp = () => {
+        if (pressTimer.current) {
+            clearTimeout(pressTimer.current);
+            pressTimer.current = null;
+        }
+
+        if (!isLongPress) {
+            handleToggleMute();
+        }
+
+        handleLongPressEnd();
+    };
     
     const { id } = useParams();
     
@@ -280,7 +329,13 @@ const Player = () => {
 
     return (
         <div className="player">
-            <div className="player-with-all-the-fucking-other-stuff">
+            <div
+                className="player-with-all-the-fucking-other-stuff"
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onTouchStart={handleMouseDown}
+                onTouchEnd={handleMouseUp}
+            >
                 <div ref={imageRef}>
                     {imageUrl ? (
                         <img src={imageUrl} className={`img-url ${isScrolling ? "scroll-to" : ""}`} />
@@ -288,7 +343,7 @@ const Player = () => {
                         <img src="https://webgradients.com/public/webgradients_png/052%20Kind%20Steel.png" alt="" />
                     )}
                     <div className={`gradient-overlay ${isScrolling ? "scroll-to" : ""}`}></div>
-                    <p className={` desc ${isScrolling ? "scroll-to-1000" : ""}`}>
+                    <p className={` desc ${isScrolling ? "scroll-to-1000" : ""} ${IsOpacity ? "opacity0" : ""}`}>
                         {author || "-"} · {formattedDate} <br />
                         {title} <strong>{tags}</strong> <br />
                         {songname && `♫ ${songname}`}<br />
@@ -296,7 +351,7 @@ const Player = () => {
                 </div>
                 <img className='default' src="https://png.pngtree.com/thumb_back/fh260/background/20201226/pngtree-simple-beige-gradient-background-image_515340.jpg" />
             </div>
-            <div className="player-volume">
+            <div className={` player-volume ${IsOpacity ? "opacity0" : ""}`}>
                 {audio === 0 ? (
                     <svg width="24" data-e2e="" height="24" viewBox="0 0 48 48" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M25 10.8685C25 8.47242 22.3296 7.04325 20.3359 8.37236L10.3944 15H6C4.34315 15 3 16.3431 3 18V30C3 31.6568 4.34314 33 6 33H10.3944L20.3359 39.6276C22.3296 40.9567 25 39.5276 25 37.1315V10.8685ZM29.2929 18.1213L35.1716 24L29.2929 29.8787C28.9024 30.2692 28.9024 30.9024 29.2929 31.2929L30.7071 32.7071C31.0976 33.0976 31.7308 33.0976 32.1213 32.7071L38 26.8284L43.8787 32.7071C44.2692 33.0976 44.9024 33.0976 45.2929 32.7071L46.7071 31.2929C47.0976 30.9024 47.0976 30.2692 46.7071 29.8787L40.8284 24L46.7071 18.1213C47.0976 17.7308 47.0976 17.0976 46.7071 16.7071L45.2929 15.2929C44.9024 14.9024 44.2692 14.9024 43.8787 15.2929L38 21.1716L32.1213 15.2929C31.7308 14.9024 31.0976 14.9024 30.7071 15.2929L29.2929 16.7071C28.9024 17.0976 28.9024 17.7308 29.2929 18.1213Z"></path></svg>
                 ) : (
@@ -311,7 +366,7 @@ const Player = () => {
                     onChange={(e) => setAudio(parseFloat(e.target.value))} 
                 />
             </div>
-            <div className={`player-controls ${isScrolling ? "scroll-to-other" : ""}`} >
+            <div className={`player-controls ${isScrolling ? "scroll-to-other" : ""} ${IsOpacity ? "opacity0-2" : ""}`} >
                 <div className='profile-icon'>
                     <img onClick={takeToUser} /* src={random} */ src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg" />
                     <span>
