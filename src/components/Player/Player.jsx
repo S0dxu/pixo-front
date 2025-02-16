@@ -225,7 +225,6 @@ const Player = () => {
         const imageId = currentImageId;
         
         if (!imageId || !userId) {
-            alert("User ID or Image ID is missing");
             return;
         }
       
