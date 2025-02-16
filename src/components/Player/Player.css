@@ -371,7 +371,7 @@
     }
 
     .player {
-        height: 100dvh;
+        height: calc(100dvh -50px);
     }
 
     .player svg {
@@ -434,7 +434,7 @@
 @media (max-width: 490px) {
     .player .player-with-all-the-fucking-other-stuff img {
         width: 100vw;
-        height: 100dvh;
+        height: calc(100dvh -50px);
         border-radius: 0;
     }
 
