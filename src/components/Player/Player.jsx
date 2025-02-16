@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { format, differenceInHours } from 'date-fns';
 import './Player.css';
 import { jwtDecode } from "jwt-decode";
+import heart_smash from '../../assets/GIFPaint-2--unscreen.gif'
 import placeholder from '../../assets/placeholder.png';
 import comments from '../../assets/svgviewer-png-output (2).png';
 import random from '../../assets/d4667c5475734c188fd2738e446bde0b~c5_1080x1080.jpeg';
@@ -33,6 +34,7 @@ const Player = () => {
     const pressTimer = useRef(null);
     const [isLongPress, setIsLongPress] = useState(false);
     const [IsOpacity, setOpacity] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
     
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
@@ -60,13 +62,56 @@ const Player = () => {
     };
 
     const handleLongPressStart = () => {
-        setOpacity(true)
+        setOpacity(true);
+        audioRef.current.pause()
         setIsLongPress(true);
     };
 
     const handleLongPressEnd = () => {
         setOpacity(false)
+        audioRef.current.play()
         setIsLongPress(false);
+    };
+
+    const lastClickTime = useRef(0);
+
+    const handleDoubleClick = async () => {
+        const now = Date.now();
+        if (now - lastClickTime.current < 300) {
+            setIsPlaying(true);
+            setTimeout(() => {
+                setIsPlaying(false);
+            }, 760);
+            if (!isLiked) {
+                const userId = getUserIdFromToken();
+                const imageId = currentImageId;
+                if (!imageId || !userId) return;
+                try {
+                    const response = await fetch("https://pixo-backend-version-1-2.onrender.com/like-image", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ imageId, userId }),
+                    });
+                    if (!response.ok) {
+                        const errorText = await response.text();
+                        console.error("Error response:", errorText);
+                        alert("Something went wrong. Please try again.");
+                        return;
+                    }
+                    const data = await response.json();
+                    setLikes(data.likes);
+                    setIsLiked(true);
+                } catch (error) {
+                    console.error("Error handling like:", error);
+                    alert("An error occurred. Please try again later.");
+                }
+            } else {
+                console.log("Already liked");
+            }
+        }
+        lastClickTime.current = now;
     };
 
     const handleMouseDown = () => {
@@ -335,6 +380,7 @@ const Player = () => {
                 onMouseUp={handleMouseUp}
                 onTouchStart={handleMouseDown}
                 onTouchEnd={handleMouseUp}
+                onClick={handleDoubleClick}
             >
                 <div ref={imageRef}>
                     {imageUrl ? (
@@ -366,6 +412,12 @@ const Player = () => {
                     onChange={(e) => setAudio(parseFloat(e.target.value))} 
                 />
             </div>
+            {/* {isPlaying && (
+            <img 
+                src={`${heart_smash}?t=${Date.now()}`} // Aggiunge un timestamp per evitare caching
+                className="like-smash" 
+            />
+        )} */}
             <div className={`player-controls ${isScrolling ? "scroll-to-other" : ""} ${IsOpacity ? "opacity0-2" : ""}`} >
                 <div className='profile-icon'>
                     <img onClick={takeToUser} /* src={random} */ src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg" />

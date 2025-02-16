@@ -130,7 +130,7 @@
 .player input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
-    width: 100px;
+    width: 50px;
     height: 2px;
     background: #868686;
     border-radius: 5px;
@@ -598,6 +598,14 @@
     fill: #e1002d;
 }
 
+.player .like-smash {
+    position: absolute;
+    width: 300px;
+    left: calc(50% - 60px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent !important;
+}
 
 .comments {
     margin-top: 20px;
