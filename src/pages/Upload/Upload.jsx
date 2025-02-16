@@ -22,7 +22,7 @@ const Upload = () => {
     const [videoTitle, setVideoTitle] = useState("");
     
     const songsList = [
-        { title: "None", link: ""},
+        { title: "None", link: "" },
         { title: "Ransom", link: "https://www.soundboard.com/track/download/1052113" },
         { title: "Wake Me Up", link: "https://www.soundboard.com/track/download/976130" },
         { title: "Without Me", link: "https://www.soundboard.com/track/download/986791" },
@@ -249,7 +249,7 @@ const Upload = () => {
                         <div className="songs-list">
                             {songsList.map((song, index) => (
                                 <div key={index} className="song-option" onClick={() => handleSongSelect(song)}>
-                                    <svg viewBox="0 0 72 72" id="emoji" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="color"> <circle cx="36" cy="36" r="22" fill="#3F3F3F" stroke="none" stroke-miterlimit="10" stroke-width="2"></circle> <circle cx="36" cy="36" r="12.7559" fill="#9B9B9A" stroke="none" stroke-miterlimit="10" stroke-width="2"></circle> </g> <g id="hair"></g> <g id="skin"></g> <g id="skin-shadow"></g> <g id="line"> <circle cx="36" cy="36" r="22" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"></circle> <circle cx="36" cy="36" r="12.7559" fill="none" stroke="#000000" stroke-miterlimit="10" stroke-width="2"></circle> </g> </g></svg>
+                                    <svg viewBox="0 0 72 72" id="emoji" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="color"> <circle cx="36" cy="36" r="22" fill="#3F3F3F" stroke="none" strokeMiterlimit="10" strokeWidth="2"></circle> <circle cx="36" cy="36" r="12.7559" fill="#9B9B9A" stroke="none" strokeMiterlimit="10" strokeWidth="2"></circle> </g> <g id="hair"></g> <g id="skin"></g> <g id="skin-shadow"></g> <g id="line"> <circle cx="36" cy="36" r="22" fill="none" stroke="#000000" strokeMiterlimit="10" strokeWidth="2"></circle> <circle cx="36" cy="36" r="12.7559" fill="none" stroke="#000000" strokeMiterlimit="10" strokeWidth="2"></circle> </g> </g></svg>
                                     <p className={`song-option ${selectedSong?.title === song.title ? "song-active" : ""}`}>
                                         {song.title}
                                     </p>
