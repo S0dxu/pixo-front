@@ -122,6 +122,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    background-color: #00000063;
+    padding: 0 10px;
+    border-radius: 10px;
 }
 
 .player input[type="range"] {
@@ -225,7 +228,7 @@
 
 .opacity0 {
     opacity: 0;
-    transition: .1s ease;
+    transition: .25s ease;
 }
 
 .player .default {
@@ -435,7 +438,7 @@
 
     .opacity0-2 {
         opacity: 0;
-        transition: .1s ease;
+        transition: .25s ease;
     }
 
     .player .player-volume {

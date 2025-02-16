@@ -45,7 +45,7 @@ const Player = () => {
     };
 
     const handleToggleMute = () => {
-        if (audioRef.current) {
+        /* if (audioRef.current) {
             if (audioRef.current.volume > 0) {
                 sessionStorage.setItem('savedVolume', audio.toString());
                 setAudio(0);
@@ -56,7 +56,7 @@ const Player = () => {
                 setAudio(newVolume);
                 audioRef.current.volume = newVolume;
             }
-        }
+        } */
     };
 
     const handleLongPressStart = () => {
