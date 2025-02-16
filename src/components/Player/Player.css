@@ -349,6 +349,18 @@
     }
 }
 
+@keyframes scroll-to-other {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
 @media (max-width: 600px) {
     .player .player-controls {
         position: absolute;
@@ -356,6 +368,10 @@
         right: 5px;
         margin-bottom: 5px;
     }
+
+    .player .player-controls.scroll-to-other {
+        transition: scroll-to-other .3s ease;
+    }    
 
     .player {
         top: 0;
@@ -407,7 +423,7 @@
         border: 1px solid #fff;
     }
 
-    .player.player-controls svg {
+    .player .player-controls svg {
         margin-top: 5px;
     }
 
@@ -494,8 +510,13 @@
 .player .player-with-all-the-fucking-other-stuff img {
     max-width: 100vw;
     object-fit: contain;
+    background-color: #000 !important;
 }
 
 .player .default {
-    background-color: #000 !important;
+    display: none;
 }
+
+/* .player div {
+    background-color: red !important;
+} */

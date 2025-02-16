@@ -217,7 +217,7 @@ const Player = () => {
                 </div>
                 <img className='default' src="https://png.pngtree.com/thumb_back/fh260/background/20201226/pngtree-simple-beige-gradient-background-image_515340.jpg" />
             </div>
-            <div className="player-controls">
+            <div className={`player-controls ${isScrolling ? "scroll-to-other" : ""}`} >
                 <div className='profile-icon'>
                     <img onClick={takeToUser} /* src={random} */ src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg" />
                     <span>
