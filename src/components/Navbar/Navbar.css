@@ -6,7 +6,6 @@
     margin-top: -20px; 
     z-index: 99;
     position: fixed;
-    width: calc(100% - 60px);
 }
 
 .navbar li {
