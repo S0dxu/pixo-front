@@ -212,7 +212,7 @@ const Player = () => {
                     <p className={` desc ${isScrolling ? "scroll-to-1000" : ""}`}>
                         {author || "-"} · {formattedDate} <br />
                         {title} <strong>{tags}</strong> <br />
-                        ♫ {songname}<br />
+                        {songname && `♫ ${songname}`}<br />
                     </p>
                 </div>
                 <img className='default' src="https://png.pngtree.com/thumb_back/fh260/background/20201226/pngtree-simple-beige-gradient-background-image_515340.jpg" />
