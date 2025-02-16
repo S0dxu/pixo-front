@@ -354,7 +354,7 @@
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-20%);
+        transform: translateY(-50%);
     }
     100% {
         transform: translateY(0%);
@@ -368,10 +368,10 @@
         right: 5px;
         margin-bottom: 5px;
     }
-
-    .player .player-controls.scroll-to-other {
-        transition: scroll-to-other .3s ease;
-    }    
+    
+    .scroll-to-other {
+        animation: scroll-to-other .3s ease;
+    }
 
     .player {
         top: 0;
@@ -421,10 +421,6 @@
         width: 45px;
         height: 45px;
         border: 1px solid #fff;
-    }
-
-    .player .player-controls svg {
-        margin-top: 5px;
     }
 
     .player .player-controls p {
