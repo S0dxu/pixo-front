@@ -596,7 +596,11 @@
 } */
 
 .player .liked {
-    fill: #e1002d;
+    fill: #e1002d !important;
+}
+
+.player .liked path {
+    fill: #e1002d !important;
 }
 
 .player .like-smash {
