@@ -444,6 +444,7 @@
     .player .player-volume {
         left: 10px;
         gap: 10px;
+        display: none;
     }
 
     .scroll-to-other {
