@@ -564,6 +564,7 @@
         left: 50%;
         transform: translateX(-50%);
         border-radius: 0;
+        background-color: #000;
     }
 
     .player .gradient-overlay {
