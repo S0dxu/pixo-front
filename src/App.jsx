@@ -17,6 +17,12 @@ import Zoom from "./components/Other/Zoom";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+  const [audio, setAudio] = useState(1);
+
+  const updateAudio = (newAudio) => {
+    setAudio(newAudio);
+  };
+
   return (
     <Router>
       <ScrollToTop />
@@ -35,11 +41,11 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/:id" element={<Player />} />
+          <Route path="/:id" element={<Player audio={audio} updateAudio={setAudio} />} />
           <Route path="/profile/:username" element={<Profile />} />
         </Routes>
       </div>
-      <MobileNavbar />
+      <MobileNavbar audio={audio} updateAudio={setAudio} />
     </Router>
   );
 }

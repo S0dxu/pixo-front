@@ -85,12 +85,12 @@ const Profile = () => {
                 <img src="https://media.istockphoto.com/id/1320815200/photo/wall-black-background-for-design-stone-black-texture-background.jpg?s=612x612&w=0&k=20&c=hqcH1pKLCLn_ZQ5vUPUfi3BOqMWoBzbk5-61Xq7UMsU=" alt="" />
                 <div className="right">
                     <h4>{user.username}</h4>
-                    <li>
+                    {/* <li>
                         <p><strong>0</strong> Following</p>
                         <p><strong>0</strong> Followers</p>
                         <p><strong>0</strong> Likes</p>
                     </li>
-                    <p className='bio'>No bio yet.</p>
+                    <p className='bio'>No bio yet.</p> */}
                 </div>
             </div>
             <hr />
