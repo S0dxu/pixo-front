@@ -567,6 +567,10 @@
         background-color: #000;
     }
 
+    body {
+        background-color: red;
+    }
+
     .player .gradient-overlay {
         border-radius: 0 !important;
     }
