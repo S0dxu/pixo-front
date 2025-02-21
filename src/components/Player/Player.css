@@ -461,7 +461,7 @@
 
     .player .player-with-all-the-fucking-other-stuff img {
         width: 100vw;
-        height: calc(100dvh);
+        height: calc(100dvh - 55px);
         border-radius: 0;
     }
 
@@ -550,7 +550,7 @@
 @media (max-width: 490px) {
     .player .player-with-all-the-fucking-other-stuff img {
         width: 100vw;
-        height: calc(100dvh - 55px);
+        height: calc(100dvh);
         border-radius: 0;
     }
 
