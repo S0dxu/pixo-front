@@ -568,7 +568,7 @@
     }
 
     body {
-        background-color: red;
+        height: 100vw;
     }
 
     .player .gradient-overlay {
