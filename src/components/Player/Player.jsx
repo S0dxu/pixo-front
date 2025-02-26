@@ -38,6 +38,40 @@ const Player = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const historyStack = useRef([]);
     const futureStack = useRef([]);
+
+    useEffect(() => {
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    
+        if (isMobile) {
+          document.documentElement.style.overscrollBehavior = "none";
+    
+          const preventZoom = (e) => {
+            e.preventDefault();
+          };
+          document.addEventListener("gesturestart", preventZoom);
+          document.addEventListener("gesturechange", preventZoom);
+          document.addEventListener("gestureend", preventZoom);
+    
+          let lastTap = 0;
+          const preventDoubleTapZoom = (e) => {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            if (tapLength < 300 && tapLength > 0) {
+              e.preventDefault();
+            }
+            lastTap = currentTime;
+          };
+          document.addEventListener("touchend", preventDoubleTapZoom);
+    
+          return () => {
+            document.documentElement.style.overscrollBehavior = "";
+            document.removeEventListener("gesturestart", preventZoom);
+            document.removeEventListener("gesturechange", preventZoom);
+            document.removeEventListener("gestureend", preventZoom);
+            document.removeEventListener("touchend", preventDoubleTapZoom);
+          };
+        }
+      }, []);
     
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
