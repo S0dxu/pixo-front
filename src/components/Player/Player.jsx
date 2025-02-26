@@ -37,7 +37,7 @@ const Player = () => {
     const [IsOpacity, setOpacity] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const historyStack = useRef([]);
-  const futureStack = useRef([]);
+    const futureStack = useRef([]);
     
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
@@ -181,7 +181,7 @@ const Player = () => {
         } finally {
           setLoading(false);
         }
-      };
+    };
 
     const [textToCopy, setTextToCopy] = useState(""); 
 
@@ -191,11 +191,8 @@ const Player = () => {
           const response = await fetch("https://pixo-backend-version-1-2.onrender.com/get-random-image");
           if (!response.ok) throw new Error("Error fetching image");
           const data = await response.json();
-          // Se stiamo fetchando una nuova immagine (scroll down)
           if (currentImageId) {
-            // Salva l'immagine corrente nello stack della history
             historyStack.current.push(currentImageId);
-            // Inoltre, se stiamo andando "nuovo", cancelliamo lo stack future
             futureStack.current = [];
           }
           setImageUrl(data.url);
@@ -218,7 +215,7 @@ const Player = () => {
         } finally {
           setLoading(false);
         }
-      };
+    };
 
     const handleCopy = () => {
         console.log(textToCopy);
@@ -279,7 +276,7 @@ const Player = () => {
           setLastScrollTime(currentTime);
           setTimeout(() => setIsScrollingUp(false), 600);
         }
-      };
+    };
 
     const takeToUser = () => {
         console.log(author)
