@@ -78,7 +78,7 @@ const Player = () => {
         } */
     };
 
-    const handleTouchLongPressStart = () => {
+    /* const handleTouchLongPressStart = () => {
         pressTimer.current = setTimeout(() => {
           handleLongPressStart();
           setIsLongPress(true);
@@ -94,7 +94,7 @@ const Player = () => {
           handleLongPressEnd();
           setIsLongPress(false);
         }
-    };      
+    };    */   
 
     const handleLongPressStart = () => {
         setOpacity(true);
@@ -475,10 +475,7 @@ const Player = () => {
                 className="player-with-all-the-fucking-other-stuff"
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
-                onTouchStart={(e) => {
-                    handleTouchLongPressStart();
-                    handleTouchStart(e);
-                  }}
+                onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onClick={handleDoubleClick}
             >
