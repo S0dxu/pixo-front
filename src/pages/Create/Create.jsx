@@ -10,7 +10,8 @@ const Create = () => {
     const [error, setError] = useState("");
     const fileInputRef = useRef(null);
 
-    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/gif", "video/mp4"];
+
 
     const handleFileSelect = (event) => {
         const selectedFile = event.target.files[0];
