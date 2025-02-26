@@ -38,7 +38,7 @@ const Create = () => {
             setError("");
         } else {
             setFile(null);
-            setError("Format not supported. Use PNG, JPG or JPEG.");
+            setError("Format not supported. Use PNG, JPG, JPEG, GIF or MP4.");
             setLoading(false);
         }
     };
@@ -88,7 +88,7 @@ const Create = () => {
             type="file" 
             ref={fileInputRef} 
             onChange={handleFileSelect} 
-            accept=".png, .jpg, .jpeg, .webp"
+            accept=".png, .jpg, .jpeg, .gif, .mp4"
             style={{ display: "none" }} 
             />
         </div>
