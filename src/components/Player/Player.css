@@ -222,6 +222,10 @@
     animation: scroll-to .3s ease;
 }
 
+.scroll-to-up {
+    animation: scroll-to-up .3s ease;
+}
+
 .scroll-to-1000 {
     animation: scroll-to-1000 .3s ease;
 }
@@ -398,6 +402,18 @@
     }
     50% {
         transform: translateY(-20%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes scroll-to-up {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(20%);
     }
     100% {
         transform: translateY(0%);

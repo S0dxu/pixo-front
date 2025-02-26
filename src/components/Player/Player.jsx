@@ -20,6 +20,7 @@ const Player = () => {
     const [loading, setLoading] = useState(false);
     const [lastScrollTime, setLastScrollTime] = useState(0);
     const [isScrolling, setIsScrolling] = useState(false);
+    const [isScrollingUp, setIsScrollingUp] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [isVisible2, setIsVisible2] = useState(false);
@@ -35,6 +36,8 @@ const Player = () => {
     const [isLongPress, setIsLongPress] = useState(false);
     const [IsOpacity, setOpacity] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
+    const historyStack = useRef([]);
+  const futureStack = useRef([]);
     
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
@@ -153,78 +156,69 @@ const Player = () => {
         }
     })() : "-";
 
-    const fetchImageById = async (id) => {
+    const fetchImageById = async (imgId) => {
         setLoading(true);
         try {
-            const response = await fetch(`https://pixo-backend-version-1-2.onrender.com/get-image-by-id/${id}`);
-            if (!response.ok) throw new Error("error fetching ID");
-
-            const data = await response.json();
-            setImageUrl(data.url);
-            setAuthor(data.author);
-            setDate(data.date);
-            setTitle(data.title);
-            setSongname(data.songname);
-            setSonglink(data.songlink);
-            setTags(tagsHandler(data.tags));
-            setViews(data.views);
-            setTextToCopy(`https://pixo-v1.netlify.app/${data._id}`);
-            setCurrentImageId(data._id);
-
-            const userId = getUserIdFromToken();
-            const likes = data.likes;
-            if (likes.some(like => like.toString() === userId)) {
-                setIsLiked(true);
-            } else {
-                setIsLiked(false);
-            }
-
-            setLikes(likes.length)
-
-            console.log("ID:", data._id);
+          const response = await fetch(`https://pixo-backend-version-1-2.onrender.com/get-image-by-id/${imgId}`);
+          if (!response.ok) throw new Error("error fetching ID");
+          const data = await response.json();
+          setImageUrl(data.url);
+          setAuthor(data.author);
+          setDate(data.date);
+          setTitle(data.title);
+          setSongname(data.songname);
+          setSonglink(data.songlink);
+          setTags(tagsHandler(data.tags));
+          setViews(data.views);
+          setTextToCopy(`https://pixo-v1.netlify.app/${data._id}`);
+          setCurrentImageId(data._id);
+          const userId = getUserIdFromToken();
+          const likesArr = data.likes;
+          setIsLiked(likesArr.some(like => like.toString() === userId));
+          setLikes(likesArr.length);
         } catch (error) {
-            console.error("another error :", error); // type shit
+          console.error("another error :", error);
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
 
     const [textToCopy, setTextToCopy] = useState(""); 
 
     const fetchRandomImage = async () => {
         setLoading(true);
         try {
-            const response = await fetch("https://pixo-backend-version-1-2.onrender.com/get-random-image");
-            if (!response.ok) throw new Error("Error fetching image");
-    
-            const data = await response.json();
-            setImageUrl(data.url);
-            setAuthor(data.author);
-            setDate(data.date);
-            setTitle(data.title);
-            setSongname(data.songname);
-            setSonglink(data.songlink);
-            setTags(tagsHandler(data.tags));
-            setViews(data.views);
-            setCurrentImageId(data._id);
-            setTextToCopy(`https://pixo-v1.netlify.app/${data._id}`);
-    
-            const userId = getUserIdFromToken();
-            const likes = data.likes;
-            if (likes.some(like => like.toString() === userId)) {
-                setIsLiked(true);
-            } else {
-                setIsLiked(false);
-            }
-            setLikes(likes.length)
-            console.log("ID:", data._id);
-            return data._id;
+          const response = await fetch("https://pixo-backend-version-1-2.onrender.com/get-random-image");
+          if (!response.ok) throw new Error("Error fetching image");
+          const data = await response.json();
+          // Se stiamo fetchando una nuova immagine (scroll down)
+          if (currentImageId) {
+            // Salva l'immagine corrente nello stack della history
+            historyStack.current.push(currentImageId);
+            // Inoltre, se stiamo andando "nuovo", cancelliamo lo stack future
+            futureStack.current = [];
+          }
+          setImageUrl(data.url);
+          setAuthor(data.author);
+          setDate(data.date);
+          setTitle(data.title);
+          setSongname(data.songname);
+          setSonglink(data.songlink);
+          setTags(tagsHandler(data.tags));
+          setViews(data.views);
+          setCurrentImageId(data._id);
+          setTextToCopy(`https://pixo-v1.netlify.app/${data._id}`);
+          const userId = getUserIdFromToken();
+          const likesArr = data.likes;
+          setIsLiked(likesArr.some(like => like.toString() === userId));
+          setLikes(likesArr.length);
+          return data._id;
         } catch (error) {
-            console.error("Error:", error);
+          console.error("Error:", error);
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
 
     const handleCopy = () => {
         console.log(textToCopy);
@@ -251,22 +245,41 @@ const Player = () => {
 
     const handleScroll = () => {
         const currentTime = Date.now();
-        if (currentTime - lastScrollTime >= 1000) {
-            const imagePosition = imageRef.current.getBoundingClientRect();
-            if (!loading && !isAnimating) {
-                setIsScrolling(true);
-                setIsAnimating(true);
-
-                setTimeout(() => {
-                    fetchRandomImage();
-                    setIsAnimating(false);
-                }, 10);
-
-                setLastScrollTime(currentTime);
-                setTimeout(() => setIsScrolling(false), 600);
+        if (currentTime - lastScrollTime >= 1000 && !loading && !isAnimating) {
+          setIsScrolling(true);
+          setIsAnimating(true);
+          setTimeout(() => {
+            if (futureStack.current.length > 0) {
+              historyStack.current.push(currentImageId);
+              const nextId = futureStack.current.pop();
+              fetchImageById(nextId);
+            } else {
+              fetchRandomImage();
             }
+            setIsAnimating(false);
+          }, 10);
+          setLastScrollTime(currentTime);
+          setTimeout(() => setIsScrolling(false), 600);
         }
     };
+
+    const handleScrollUp = () => {
+        const currentTime = Date.now();
+        if (currentTime - lastScrollTime >= 1000 && !loading && !isAnimating && historyStack.current.length > 0) {
+          setIsScrollingUp(true);
+          setIsAnimating(true);
+          setTimeout(() => {
+            if (currentImageId) {
+              futureStack.current.push(currentImageId);
+            }
+            const prevId = historyStack.current.pop();
+            fetchImageById(prevId);
+            setIsAnimating(false);
+          }, 10);
+          setLastScrollTime(currentTime);
+          setTimeout(() => setIsScrollingUp(false), 600);
+        }
+      };
 
     const takeToUser = () => {
         console.log(author)
@@ -277,16 +290,26 @@ const Player = () => {
         if (event.deltaY > 0) {
             handleScroll();
         }
+        else if (event.deltaY < 0) {
+            handleScrollUp();
+          }
         event.preventDefault();
     };
     
     const handleTouchMove = (event) => {
         const touchY = event.touches[0].clientY;
-        if (touchY > lastTouchY + 200) {
-            handleScroll();
+        const threshold = 50;
+        const deltaY = touchY - lastTouchY;
+      
+        if (deltaY > threshold) {
+          handleScroll();
+        } else if (deltaY < -threshold) {
+          handleScrollUp();
         }
+      
         lastTouchY = touchY;
-    };
+      };
+      
     
     useEffect(() => {
         window.addEventListener("wheel", handleWheel, { passive: false });
@@ -414,7 +437,7 @@ const Player = () => {
             >
                 <div ref={imageRef}>
                     {imageUrl ? (
-                        <img src={imageUrl} className={`img-url ${isScrolling ? "scroll-to" : ""}`} />
+                        <img src={imageUrl} className={`img-url ${isScrolling ? "scroll-to" : ""} ${isScrollingUp ? "scroll-to-up" : ""}`} />
                     ) : (
                         <img src="https://webgradients.com/public/webgradients_png/052%20Kind%20Steel.png" alt="" />
                     )}
