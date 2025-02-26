@@ -10,8 +10,7 @@ const Create = () => {
     const [error, setError] = useState("");
     const fileInputRef = useRef(null);
 
-    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/gif", "video/mp4"];
-
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
 
     const handleFileSelect = (event) => {
         const selectedFile = event.target.files[0];
@@ -38,7 +37,7 @@ const Create = () => {
             setError("");
         } else {
             setFile(null);
-            setError("Format not supported. Use PNG, JPG, JPEG, GIF or MP4.");
+            setError("Format not supported. Use PNG, JPG or JPEG.");
             setLoading(false);
         }
     };
@@ -88,7 +87,7 @@ const Create = () => {
             type="file" 
             ref={fileInputRef} 
             onChange={handleFileSelect} 
-            accept=".png, .jpg, .jpeg, .gif, .mp4"
+            accept=".png, .jpg, .jpeg"
             style={{ display: "none" }} 
             />
         </div>
