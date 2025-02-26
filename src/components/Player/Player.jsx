@@ -293,21 +293,36 @@ const Player = () => {
         event.preventDefault();
     };
     
+    let initialTouchY = null;
+
+    const handleTouchStart = (event) => {
+        initialTouchY = event.touches[0].clientY;
+    };
+
     const handleTouchMove = (event) => {
-        const touchY = event.touches[0].clientY;
-        const threshold = 50;
-        const deltaY = touchY - lastTouchY;
-      
-        if (deltaY > threshold) {
-          handleScroll();
-        } else if (deltaY < -threshold) {
-          handleScrollUp();
+    const touchY = event.touches[0].clientY;
+
+    if (touchY < 20 || touchY > window.innerHeight - 20) {
+        return;
+    }
+
+    if (initialTouchY === null) {
+        initialTouchY = touchY;
+    }
+
+    const deltaY = touchY - initialTouchY;
+
+    if (Math.abs(deltaY) >= 70) {
+        if (deltaY > 0) {
+        handleScrollUp();
+        } else {
+        handleScroll();
         }
+        initialTouchY = touchY;
+    }
+    };
+
       
-        lastTouchY = touchY;
-      };
-      
-    
     useEffect(() => {
         window.addEventListener("wheel", handleWheel, { passive: false });
         window.addEventListener("touchmove", handleTouchMove, { passive: false });
@@ -428,8 +443,8 @@ const Player = () => {
                 className="player-with-all-the-fucking-other-stuff"
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
-                onTouchStart={handleMouseDown}
-                onTouchEnd={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
                 onClick={handleDoubleClick}
             >
                 <div ref={imageRef}>
