@@ -467,7 +467,7 @@ const Player = () => {
             </div>
             {/* {isPlaying && (
             <img 
-                src={`${heart_smash}?t=${Date.now()}`} // Aggiunge un timestamp per evitare caching
+                src={`${heart_smash}?t=${Date.now()}`}
                 className="like-smash" 
             />
         )} */}
