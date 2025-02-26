@@ -78,6 +78,24 @@ const Player = () => {
         } */
     };
 
+    const handleTouchLongPressStart = () => {
+        pressTimer.current = setTimeout(() => {
+          handleLongPressStart();
+          setIsLongPress(true);
+        }, 500);
+      };
+      
+      const handleTouchLongPressEnd = () => {
+        if (pressTimer.current) {
+          clearTimeout(pressTimer.current);
+          pressTimer.current = null;
+        }
+        if (isLongPress) {
+          handleLongPressEnd();
+          setIsLongPress(false);
+        }
+    };      
+
     const handleLongPressStart = () => {
         setOpacity(true);
         audioRef.current.pause()
@@ -457,7 +475,10 @@ const Player = () => {
                 className="player-with-all-the-fucking-other-stuff"
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
-                onTouchStart={handleTouchStart}
+                onTouchStart={(e) => {
+                    handleTouchLongPressStart();
+                    handleTouchStart(e);
+                  }}
                 onTouchMove={handleTouchMove}
                 onClick={handleDoubleClick}
             >
