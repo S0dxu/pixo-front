@@ -40,38 +40,18 @@ const Player = () => {
     const futureStack = useRef([]);
 
     useEffect(() => {
-        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    
-        if (isMobile) {
-          document.documentElement.style.overscrollBehavior = "none";
-    
-          const preventZoom = (e) => {
+        const handleTouchMove = (e) => {
+          if (window.scrollY === 0 && e.touches[0].clientY > 0) {
             e.preventDefault();
-          };
-          document.addEventListener("gesturestart", preventZoom);
-          document.addEventListener("gesturechange", preventZoom);
-          document.addEventListener("gestureend", preventZoom);
-    
-          let lastTap = 0;
-          const preventDoubleTapZoom = (e) => {
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-            if (tapLength < 300 && tapLength > 0) {
-              e.preventDefault();
-            }
-            lastTap = currentTime;
-          };
-          document.addEventListener("touchend", preventDoubleTapZoom);
-    
-          return () => {
-            document.documentElement.style.overscrollBehavior = "";
-            document.removeEventListener("gesturestart", preventZoom);
-            document.removeEventListener("gesturechange", preventZoom);
-            document.removeEventListener("gestureend", preventZoom);
-            document.removeEventListener("touchend", preventDoubleTapZoom);
-          };
-        }
-      }, []);
+          }
+        };
+      
+        window.addEventListener("touchmove", handleTouchMove, { passive: false });
+      
+        return () => {
+          window.removeEventListener("touchmove", handleTouchMove);
+        };
+    }, []);
     
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
