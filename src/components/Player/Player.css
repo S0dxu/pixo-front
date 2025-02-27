@@ -179,6 +179,9 @@
 .player audio {
     width: 0;
     height: 0;
+    position: absolute;
+    top: -200dvh;
+    display: none;
 }
 
 .player .settings {
