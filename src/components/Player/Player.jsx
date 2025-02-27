@@ -488,7 +488,7 @@ const Player = () => {
                     {imageUrl ? (
                         <img src={imageUrl} className={`img-url`} />
                     ) : (
-                        <img src="https://webgradients.com/public/webgradients_png/052%20Kind%20Steel.png" alt="" />
+                        <img src="https://webdi.fr/img/couleurs/000000.png" alt="" />
                     )}
                     <div 
                     onMouseEnter={handleMouseEnter}
