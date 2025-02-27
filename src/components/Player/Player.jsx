@@ -275,38 +275,43 @@ const Player = () => {
     const handleScroll = () => {
         const currentTime = Date.now();
         if (currentTime - lastScrollTime >= 1000 && !loading && !isAnimating) {
-          setIsScrolling(true);
-          setIsAnimating(true);
-          setTimeout(() => {
-            if (futureStack.current.length > 0) {
-              historyStack.current.push(currentImageId);
-              const nextId = futureStack.current.pop();
-              fetchImageById(nextId);
-            } else {
-              fetchRandomImage();
-            }
-            setIsAnimating(false);
-          }, 10);
-          setLastScrollTime(currentTime);
-          setTimeout(() => setIsScrolling(false), 600);
+            setTimeout(() => setImageUrl("https://webdi.fr/img/couleurs/000000.png"), 500);
+
+            setIsScrolling(true);
+            setIsAnimating(true);
+            setTimeout(() => {
+                if (futureStack.current.length > 0) {
+                historyStack.current.push(currentImageId);
+                const nextId = futureStack.current.pop();
+                fetchImageById(nextId);
+                } else {
+                fetchRandomImage();
+                }
+                setIsAnimating(false);
+            }, 10);
+            setLastScrollTime(currentTime);
+            setTimeout(() => setIsScrolling(false), 600);
         }
     };
+    
 
     const handleScrollUp = () => {
         const currentTime = Date.now();
         if (currentTime - lastScrollTime >= 1000 && !loading && !isAnimating && historyStack.current.length > 0) {
-          setIsScrollingUp(true);
-          setIsAnimating(true);
-          setTimeout(() => {
-            if (currentImageId) {
-              futureStack.current.push(currentImageId);
-            }
-            const prevId = historyStack.current.pop();
-            fetchImageById(prevId);
-            setIsAnimating(false);
-          }, 10);
-          setLastScrollTime(currentTime);
-          setTimeout(() => setIsScrollingUp(false), 600);
+            setTimeout(() => setImageUrl("https://webdi.fr/img/couleurs/000000.png"), 500);
+            
+            setIsScrollingUp(true);
+            setIsAnimating(true);
+            setTimeout(() => {
+                if (currentImageId) {
+                futureStack.current.push(currentImageId);
+                }
+                const prevId = historyStack.current.pop();
+                fetchImageById(prevId);
+                setIsAnimating(false);
+            }, 10);
+            setLastScrollTime(currentTime);
+            setTimeout(() => setIsScrollingUp(false), 600);
         }
     };
 
@@ -345,9 +350,9 @@ const Player = () => {
     const deltaY = touchY - initialTouchY;
 
     if (Math.abs(deltaY) >= 70) {
-        if (deltaY > 0) {
+        if (deltaY > 0 && !loading) {
         handleScrollUp();
-        } else {
+        } else if (deltaY < 0 && !loading) {
         handleScroll();
         }
         initialTouchY = touchY;
@@ -472,7 +477,7 @@ const Player = () => {
     return (
         <div className="player">
             <div
-                className="player-with-all-the-fucking-other-stuff"
+                className={`player-with-all-the-fucking-other-stuff ${isScrolling ? "scroll-to" : ""} ${isScrollingUp ? "scroll-to-up" : ""}`}
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
                 onTouchStart={handleTouchStart}
@@ -481,15 +486,15 @@ const Player = () => {
             >
                 <div ref={imageRef}>
                     {imageUrl ? (
-                        <img src={imageUrl} className={`img-url ${isScrolling ? "scroll-to" : ""} ${isScrollingUp ? "scroll-to-up" : ""}`} />
+                        <img src={imageUrl} className={`img-url`} />
                     ) : (
                         <img src="https://webgradients.com/public/webgradients_png/052%20Kind%20Steel.png" alt="" />
                     )}
                     <div 
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave} 
-                    className={`gradient-overlay ${isScrolling ? "scroll-to" : ""}`}></div>
-                    <p className={` desc ${isScrolling ? "scroll-to-1000" : ""} ${IsOpacity ? "opacity0" : ""}`}>
+                    className={`gradient-overlay`}></div>
+                    <p className={` desc  ${IsOpacity ? "opacity0" : ""}`}>
                         {author || "-"} · {formattedDate} <br />
                         {title} <strong>{tags}</strong> <br />
                         {songname && `♫ ${songname}`}<br />
@@ -518,7 +523,7 @@ const Player = () => {
                 className="like-smash" 
             />
         )} */}
-            <div className={`player-controls ${isScrolling ? "scroll-to-other" : ""} ${IsOpacity ? "opacity0-2" : ""}`} >
+            <div className={`player-controls ${isScrolling ? "scroll-to-other" : ""} ${isScrollingUp ? "scroll-to-1000" : ""} ${IsOpacity ? "opacity0-2" : ""}`} >
                 <div className='profile-icon'>
                     <img onClick={takeToUser} /* src={random} */ src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg" />
                     <span>
