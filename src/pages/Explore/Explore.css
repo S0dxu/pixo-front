@@ -3,12 +3,11 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     position: relative;
     margin-left: 300px;
-    gap: 16px;
-    padding: 16px;
-    margin-bottom: 60px;
+    gap: 8px;
+    padding: 65px 8px 300px 8px!important;
 }
   
-.explore .image-container {
+.explore .image-containera {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
@@ -16,15 +15,33 @@
     transition: transform 0.2s ease-in-out;
 }
   
-.explore .image-container img,
-.explore .image-container video {
+.explore .image-containera img,
+.explore .image-containera video {
     width: 100%;
     height: 60vh;
     display: block;
     object-fit: cover;
 }
+
+.explore .dots {
+    background-color: #25282d;
+    top: 10px;
+    right: 30px;
+    width: 44px;
+    border-radius: 10px;
+    z-index: 4;
+    height: 44px;
+    outline: none;
+    border: none;
+    position: fixed;
+}
+
+.explore .dots svg {
+    left: 7px;
+    position: absolute;
+}
   
-.explore .image-container p {
+.explore .image-containera p {
     position: absolute; 
     bottom: 8px;
     left: 8px;
@@ -40,16 +57,64 @@
     margin-right: 4px;
 }
 
+.search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 10px 25px;
+    z-index: 3;
+    display: none;
+}
+
+.search-input {
+    width: calc(100vw - 230px);
+    border-radius: 10px;
+    font-family: "Poppins";
+    background-color: #25282d;
+    color: #fff;
+    position: fixed;
+    font-size: 15px;
+    padding: 10px 60px;
+    outline: none;
+    border: none;
+    z-index: 3;
+}
+
+.search-container svg {
+    width: calc(200px / 7);
+    border-radius: 10px;
+    padding: 2px;
+    position: absolute;
+    z-index: 4;
+    top: 7px;
+    left: 15px;
+}
+
+.search-input::placeholder {
+    color: #a3a7b0;
+}
+
+
 @media (max-width: 1100px) {
     .explore {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         margin-left: 0px;
-        gap: 8px;
-        padding: 8px;
+        padding: 0px;
+        gap: 2px;
+        background-color: #0c0f14;
     }
 
-    .explore .image-container img,
-    .explore .image-container video {
-        height: calc(60vw);
+    .search-container,
+    .explore .dots {
+        display: block !important;
+    }
+
+    .explore .image-containera {
+        border-radius: 0px;
+    }
+
+    .explore .image-containera img,
+    .explore .image-containera video {
+        height: calc(100vw / 3 - 8px);
     }
 }
