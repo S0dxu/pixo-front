@@ -427,14 +427,17 @@ const Player = () => {
     }, [audio]);
 
     useEffect(() => {
-        if (audioRef.current && songlink) {
-            audioRef.current.src = songlink;
-            audioRef.current.play().catch((error) => {
-                /* console.error("Playback error:", error); */
-                return
-            });
+        if (audioRef.current) {
+            if (songlink) {
+                audioRef.current.src = songlink;
+                audioRef.current.play().catch((error) => {
+                });
+            } else {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+            }
         }
-    }, [songlink]);
+    }, [songlink]);    
 
     useEffect(() => {
         if (audioRef.current) {
@@ -532,7 +535,17 @@ const Player = () => {
             >
                 <div ref={imageRef}>
                     {imageUrl ? (
-                        (isImage ? (<img src={imageUrl} className={`img-url`} />) : (<video autoPlay loop ref={videoRef}><source src={imageUrl} type="video/mp4" /></video>))
+                        (isImage ? (<img src={imageUrl} className={`img-url`} />) : (<video
+                            key={currentImageId}
+                            autoPlay
+                            loop
+                            ref={videoRef}
+                            onLoadedMetadata={() => {
+                              if (videoRef.current) {
+                                videoRef.current.volume = audio;
+                              }
+                            }}
+                            ><source src={imageUrl} type="video/mp4" /></video>))
                     ) : (
                         <img src="https://webdi.fr/img/couleurs/000000.png" alt="" />
                     )}
