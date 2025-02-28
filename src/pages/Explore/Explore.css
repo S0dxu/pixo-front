@@ -4,7 +4,7 @@
     position: relative;
     margin-left: 300px;
     gap: 8px;
-    padding: 65px 8px 300px 8px!important;
+    padding: 65px 0px calc(100vh - 530px) 0px !important;
 }
   
 .explore .image-containera {
@@ -26,7 +26,7 @@
 .explore .dots {
     background-color: #25282d;
     top: 10px;
-    right: 30px;
+    right: 20px;
     width: 44px;
     border-radius: 10px;
     z-index: 4;
@@ -37,12 +37,12 @@
 }
 
 .explore .dots svg {
-    left: 7px;
+    left: 9px;
     position: absolute;
 }
   
 .explore .image-containera p {
-    position: absolute; 
+    position: absolute;
     bottom: 8px;
     left: 8px;
     margin: 0;
@@ -53,6 +53,13 @@
     border-radius: 4px;
 }
 
+.VideoPlayer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+}
+
 .explore .like-icon {
     margin-right: 4px;
 }
@@ -61,39 +68,38 @@
     position: fixed;
     top: 0;
     left: 0;
-    margin: 10px 25px;
+    margin: 10px 20px;
     z-index: 3;
     display: none;
 }
 
 .search-input {
-    width: calc(100vw - 230px);
+    width: calc(100vw - 140px); /* 200px when there is the dots */
     border-radius: 10px;
     font-family: "Poppins";
     background-color: #25282d;
     color: #fff;
     position: fixed;
     font-size: 15px;
-    padding: 10px 60px;
+    padding: 10px 50px;
     outline: none;
     border: none;
     z-index: 3;
 }
 
 .search-container svg {
-    width: calc(200px / 7);
+    width: calc(200px / 9);
     border-radius: 10px;
     padding: 2px;
     position: absolute;
     z-index: 4;
-    top: 7px;
+    top: 9px;
     left: 15px;
 }
 
 .search-input::placeholder {
     color: #a3a7b0;
 }
-
 
 @media (max-width: 1100px) {
     .explore {
