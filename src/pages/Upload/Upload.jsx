@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "./Upload.css";
-import phone from "./../../assets/mockup_apple_iphone_15_2023_734f0b8418.png";
+import phone from "./../../assets/mockup_apple_iphone_15_2023_734f0b84182.png";
 import load from "./../../assets/loading-animation.svg";
 
 const Upload = () => {
@@ -18,6 +18,7 @@ const Upload = () => {
     const [songname, setSongname] = useState("");
     const [songlink, setSonglink] = useState("");
     const [tags, setTags] = useState("");
+    const videoRef = useRef(null)
     const [videoLink, setVideoLink] = useState("");
     const [videoTitle, setVideoTitle] = useState("");
     
@@ -140,7 +141,14 @@ const Upload = () => {
         }
     };
     
-    
+    const play = () => {
+        const video = videoRef.current;
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    };    
 
     if (loading) return <div className="loading-screen-animation">
         <img src={load} alt="" />
@@ -259,9 +267,9 @@ const Upload = () => {
                     </div>
                 </div>
             </div>
-            <div className="phone-cnt">
+            <div className="phone-cnt" onClick={play}>
                 <img src={phone} className="phone" />
-                <img src={link} className="img" />
+                {link.endsWith(".mp4") ? (<video ref={videoRef} loop autoPlay className="img" ><source src={link} type="video/mp4"/></video>) : (<img src={link} className="img" />)}
             </div>
             <button className="post-bnt" onClick={sendToMainFunc}>Post</button>
         </div>

@@ -9,6 +9,7 @@
     overflow: hidden;
 }
 
+.player video,
 .player img {
     width: 50vh;
     object-fit: cover;
@@ -23,6 +24,7 @@
     background-color: transparent;
 }
 
+.player .player-with-all-the-fucking-other-stuff video,
 .player .player-with-all-the-fucking-other-stuff img {
     height: calc(100vh - 55px);
     background: #000 !important;
@@ -64,8 +66,8 @@
     display: none; /* to remove */
 }
 
-.player span svg {
-    fill: #fff;
+.player svg path {
+    fill: #000000;
 }
 
 .player li {
@@ -81,6 +83,7 @@
     color: #2c2c2c;
 }
 
+.player .player-controls video,
 .player .player-controls img {
     width: 24px;
     margin: 0;
@@ -171,9 +174,8 @@
     cursor: pointer;
 }
 
-.player .player-volume svg {
-    fill: #fff;
-
+.player .player-volume svg path {
+    fill: #fff !important;
 }
 
 .player audio {
@@ -217,6 +219,7 @@
 }
 
 .player li svg:hover,
+.player video:hover,
 .player img:hover {
     background-color: #dadada ;
 }
@@ -451,6 +454,10 @@
         margin-bottom: 5px;
     }
 
+    .player svg path {
+        fill: #fff;
+    }    
+
     .opacity0-2 {
         opacity: 0;
         transition: .25s ease;
@@ -478,6 +485,7 @@
         border-radius: 0;
     }
 
+    .player .player-with-all-the-fucking-other-stuff video,
     .player .player-with-all-the-fucking-other-stuff img {
         width: 100dvw;
         height: calc(100dvh - 55px);
@@ -557,6 +565,7 @@
         border-radius: 0;
     }
 
+    .player video,
     .player img {
         margin: 0;
     }
@@ -567,6 +576,7 @@
 }
 
 @media (max-width: 490px) {
+    .player .player-with-all-the-fucking-other-stuff  video,
     .player .player-with-all-the-fucking-other-stuff img {
         width: 100dvw;
         height: calc(100dvh);
@@ -601,6 +611,7 @@
 }
 
 
+.player .player-with-all-the-fucking-other-stuff video,
 .player .player-with-all-the-fucking-other-stuff img {
     max-width: 100dvw;
     object-fit: contain;

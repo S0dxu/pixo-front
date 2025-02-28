@@ -186,6 +186,7 @@
     position: absolute;
     top: 205px;
     right: 30px;
+    overflow: hidden;
 }
 
 .upload .phone {
@@ -196,8 +197,9 @@
 
 .upload .img {
     width: 274px;
+    max-height: fit-content;
     height: 570px;
-    border-radius: 60px;
+    /* border-radius: 60px; */
     object-fit: cover;
     position: absolute;
     left: 50%;
