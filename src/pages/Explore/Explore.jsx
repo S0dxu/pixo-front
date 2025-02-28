@@ -1,97 +1,93 @@
-import React, { useEffect, useState } from 'react';
-import { format, differenceInHours } from 'date-fns';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Explore.css';
-import placeholder from '../../assets/placeholder.png';
 
 const Explore = () => {
-    /* const [images, setImages] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [lastLoadedDate, setLastLoadedDate] = useState(null);
-    const [history, setHistory] = useState([]);  // Stack delle immagini viste
-    const [currentIndex, setCurrentIndex] = useState(-1);  // Indice attuale nell'array history
+    const navigate = useNavigate();
+    const [images, setImages] = useState([]);
+    const videoRefs = useRef([]);
 
-
-    const fetchImages = async () => {
-        setLoading(true);
+    // Recupera tutte le immagini e le ordina per data decrescente (le più recenti prima)
+    const fetchImagesSortedByDate = async () => {
         try {
-            let url = "https://pixo-backend-version-1-2.onrender.com/get-images";
-            if (lastLoadedDate) {
-                url += `?before=${lastLoadedDate}`;
-            }
-    
-            const response = await fetch(url);
-            if (!response.ok) throw new Error("error fetching images");
-    
-            const data = await response.json();
-    
-            if (data.length > 0) {
-                setImages((prevImages) => {
-                    const uniqueImages = [...prevImages, ...data].filter((item, index, self) =>
-                        index === self.findIndex((t) => t._id === item._id)
-                    );
-                    return uniqueImages;
-                });
-    
-                setLastLoadedDate(data[data.length - 1].date);
-            }
+        const response = await fetch("https://pixo-backend-version-1-2.onrender.com/get-all-images");
+        if (!response.ok) throw new Error("Error fetching images");
+        const data = await response.json();
+        // Ordina per data: le immagini con data maggiore (più recenti) prima
+        data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setImages(data);
         } catch (error) {
-            console.error("error:", error);
-        } finally {
-            setLoading(false);
+        console.error("Error:", error);
         }
     };
 
     useEffect(() => {
-        fetchImages();
+        fetchImagesSortedByDate();
     }, []);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY + window.innerHeight;
-            const bottomPosition = document.documentElement.scrollHeight;
+    const goToPlayer = (id) => {
+        navigate(`/${id}`);
+    };
 
-            if (!loading && scrollPosition >= bottomPosition - 1000) {
-                fetchImages();
-            }
-        };
+    const autoplay = (index) => {
+        if (videoRefs.current[index]) {
+        videoRefs.current[index].play();
+        }
+    };
 
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [loading]);
-
-    const formattedDate = (date) => {
-        const publishedDate = new Date(date);
-        const hoursDifference = differenceInHours(new Date(), publishedDate);
-        
-        if (hoursDifference === 0) return 'now';
-        else if (hoursDifference < 24) return `${hoursDifference}h ago`;
-        else return format(publishedDate, 'MM-dd');
-    }; */
+    const stop = (index) => {
+        if (videoRefs.current[index]) {
+        videoRefs.current[index].pause();
+        }
+    };
 
     return (
         <div className="explore">
-            {/* <div className="player-with-all-the-fucking-other-stuff">
-                <div className="images-grid">
-                    {images.length > 0 ? (
-                        images.map((image, index) => (
-                            <div key={index} className="image-container">
-                                <img src={image.url} alt={image.title} />
-                                <div className="gradient-overlay"></div>
-                                <p>
-                                    {image.author || "-"} · {formattedDate(image.date)} <br />
-                                    {image.title} <strong>{image.tags?.map(tag => `#${tag}`).join(' ')}</strong> <br />
-                                    ♫ {image.songname} - {image.songartist} <br />
-                                </p>
-                            </div>
-                        ))
+            {images.map((img, index) => (
+                <div
+                    key={img._id}
+                    className="image-container"
+                    onClick={() => goToPlayer(img._id)}
+                >
+                    {img.url.endsWith(".mp4") ? (
+                        <video
+                            ref={(el) => (videoRefs.current[index] = el)}
+                            muted
+                            loop
+                            onMouseEnter={() => autoplay(index)}
+                            onMouseLeave={() => stop(index)}
+                            >
+                            <source src={img.url} type="video/mp4" />
+                        </video>
                     ) : (
-                        <></>
+                        <img
+                            src={img.url}
+                            alt=""
+                            onLoad={(e) => {
+                                e.target.src = '';
+                                e.target.src = img.url;
+                            }}
+                        />
                     )}
+                    <p>
+                            <svg
+                                className="like-icon"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 48 48"
+                                fill="#fff"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    clipRule="evenodd"
+                                    d="M16 10.554V37.4459L38.1463 24L16 10.554ZM12 8.77702C12 6.43812 14.5577 4.99881 16.5569 6.21266L41.6301 21.4356C43.5542 22.6038 43.5542 25.3962 41.6301 26.5644L16.5569 41.7873C14.5577 43.0012 12 41.5619 12 39.223V8.77702Z"
+                                />
+                            </svg>
+                        {img.views}
+                    </p>
                 </div>
-            </div> */}
+            ))}
         </div>
     );
 };
