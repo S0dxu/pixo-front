@@ -17,6 +17,7 @@
     width: 225px;
     height: 225px;
     margin-bottom: 30px;
+    object-fit: cover;
 }
 
 .profile .top h4 {

@@ -25,7 +25,9 @@
 }
 
 .login form input,
-.login form button {
+.login form button,
+input[type="file"]:valid + .file-label,
+.file-label {
     height: 40px;
     font-family: "Poppins";
     padding: 0 5px;

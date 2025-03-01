@@ -11,6 +11,7 @@ const Profile = () => {
     const navigate = useNavigate();
     const [isOwner, setIsOwner] = useState(false);
     const [error, setError] = useState(false);
+    const [profilePic, setProfilePic] = useState(null);
 
     const videoRefs = useRef([]);
 
@@ -38,28 +39,32 @@ const Profile = () => {
 
     useEffect(() => {
         if (!username) return;
-
+    
         const fetchData = async () => {
             try {
                 const [userResponse, imagesResponse] = await Promise.all([
                     fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-by-id/profile/${username}`),
                     fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-images/${username}`)
                 ]);
+    
                 setError(false);
+    
                 if (!userResponse.ok) {
                     setError(true);
                     return;
                 }
-
-                setUser(await userResponse.json());
+    
+                const userData = await userResponse.json();
+                setProfilePic(userData.picture);
+                setUser(userData);
                 setImages(await imagesResponse.json());
             } catch (error) {
                 console.error("Errore:", error);
             }
         };
-
+    
         fetchData();
-    }, [username, navigate]);
+    }, [username, navigate]);    
 
     if (error) {
         return (
@@ -107,7 +112,8 @@ const Profile = () => {
         <div className="profile">
             <div className="top">
                 <button className={`logout ${!isOwner ? 'invisible-logout-button' : ''}`} onClick={logout}>Log Out</button>
-                <img src="https://media.istockphoto.com/id/1320815200/photo/wall-black-background-for-design-stone-black-texture-background.jpg?s=612x612&w=0&k=20&c=hqcH1pKLCLn_ZQ5vUPUfi3BOqMWoBzbk5-61Xq7UMsU=" alt="" />
+                {/* <img src="https://media.istockphoto.com/id/1320815200/photo/wall-black-background-for-design-stone-black-texture-background.jpg?s=612x612&w=0&k=20&c=hqcH1pKLCLn_ZQ5vUPUfi3BOqMWoBzbk5-61Xq7UMsU=" alt="" /> */}
+                {profilePic ? (<img src={profilePic} alt="" />) : (<img src="https://exoffender.org/wp-content/uploads/2016/09/empty-profile.png" alt="" />)}
                 <div className="right">
                     <h4>{user.username}</h4>
                 </div>

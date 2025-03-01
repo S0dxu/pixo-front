@@ -7,6 +7,24 @@
     width: 300px;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    display: flex !important;
+    align-items: center !important;
+    color: #808080;
+}
+
+.image-preview img {
+    background-color: #000;
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
 .divider::before,
 .divider::after {
     content: "";
