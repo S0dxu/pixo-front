@@ -21,7 +21,7 @@ const Profile = () => {
                 const decodedToken = jwtDecode(token);
                 return decodedToken?.username || "";
             } catch (error) {
-                console.error("Errore nel recuperare il token:", error);
+                console.error("error token:", error);
             }
         }
         return "";
