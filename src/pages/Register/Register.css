@@ -7,6 +7,11 @@
     width: 300px;
 }
 
+
+.register form p {
+    margin-bottom: 100px;
+}
+
 input[type="file"] {
     display: none;
 }
