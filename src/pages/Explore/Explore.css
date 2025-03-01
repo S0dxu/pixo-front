@@ -5,7 +5,7 @@
     margin-left: 300px;
     margin-right: 200px;
     gap: 5px;
-    padding: 65px 0px calc(100vh - 530px) 0px !important;
+    padding: 65px 0px /* calc(100vh - 530px) 0px */ !important;
 }
   
 .explore .image-containera {

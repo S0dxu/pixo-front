@@ -12,7 +12,7 @@ const Explore = () => {
 
     const fetchImages = async () => {
         try {
-            let endpoint = `https://pixo-backend-version-1-2.onrender.com/get-all-images?limit=10&page=${page}`;
+            let endpoint = `https://pixo-backend-version-1-2.onrender.com/get-all-images?limit=20&page=${page}`;
             if (searchQuery.trim() !== "") {
                 endpoint += `&search=${encodeURIComponent(searchQuery)}`;
             }
@@ -38,12 +38,13 @@ const Explore = () => {
 
     useEffect(() => {
         fetchImages();
-    }, [page]);
+    }, [page, searchQuery]);
 
-    useEffect(() => {
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
         setPage(1);
-        fetchImages();
-    }, [searchQuery]);
+        setImages([]);
+    };
 
     const handleScroll = useCallback(() => {
         if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 10 && hasMore) {
@@ -70,10 +71,6 @@ const Explore = () => {
         if (videoRefs.current[index]) {
             videoRefs.current[index].pause();
         }
-    };
-
-    const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value);
     };
 
     return (
@@ -116,7 +113,7 @@ const Explore = () => {
                 </div>
             ))}
 
-            {hasMore && <p className="loading-text">Caricamento...</p>}
+            {hasMore && <p className="loading-text"></p>}
         </div>
     );
 };
