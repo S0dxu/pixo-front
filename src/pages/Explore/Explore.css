@@ -68,14 +68,14 @@
 }
 
 .search-input {
-    width: calc(100vw - 140px); /* 200px when there is the dots */
+    width: calc(100vw - 80px); /* 200px when there is the dots */
     border-radius: 10px;
     font-family: "Poppins";
     background-color: #25282d;
     color: #fff;
     position: fixed;
     font-size: 15px;
-    padding: 10px 50px;
+    padding: 10px 20px;
     outline: none;
     border: none;
     z-index: 3;

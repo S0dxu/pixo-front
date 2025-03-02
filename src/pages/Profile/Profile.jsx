@@ -91,7 +91,7 @@ const Profile = () => {
 
     if (!user) return (
         <div className="loading-screen-animation">
-            <img src={load} alt="" />
+            {/* <img src={load} /> */}
         </div>
     );
 
