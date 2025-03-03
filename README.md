@@ -1,86 +1,85 @@
-Ecco un esempio di file README.md in italiano che potresti utilizzare su GitHub per il sito "Pixo - Cheers You Up":
-
----
-
 # Pixo - Cheers You Up
 
-Pixo è un'applicazione web semplice e intuitiva progettata per portare un tocco di positività alla tua giornata. Il sito offre contenuti ispiratori, come messaggi ed immagini che aiutano a migliorare l'umore e a regalare un sorriso.
+Pixo is a simple and intuitive web application designed to bring a touch of positivity to your day. The site offers inspirational content, such as uplifting videos and images, to help improve your mood and put a smile on your face.
 
-## Demo Online
+## Live Demo
 
-Visita la demo live [qui](https://pixo-v1.netlify.app/foryou).
+Check out the live demo [here](https://pixo-v1.netlify.app/foryou).
 
-## Caratteristiche
+## Features
 
-- **Contenuti Positivi:** Messaggi e immagini studiati per sollevare lo spirito e portare un po' di allegria.
-- **Interfaccia Pulita e Intuitiva:** Design minimalista che mette in evidenza il contenuto, per un’esperienza utente senza distrazioni.
-- **Design Responsive:** Ottimizzato per dispositivi desktop, tablet e smartphone, per un accesso facile e veloce ovunque tu sia.
+- **Positive Content:** Curated messages and images designed to brighten your day.
+- **Clean & Intuitive Interface:** A minimalist design that puts the content first for a distraction-free experience.
+- **Responsive Design:** Optimized for desktop, tablet, and mobile devices, ensuring a seamless experience wherever you are.
+- **Modern Frontend:** Built with [Vite](https://vitejs.dev/) and [React](https://reactjs.org/) for a fast and dynamic user interface.
 
-## Iniziare
+## Backend
 
-Segui questi passaggi per eseguire Pixo in locale sul tuo computer.
+The backend for this project is maintained separately and can be found [here](https://github.com/S0dxu/pixo-back).
 
-### Prerequisiti
+## Getting Started
 
-- [Node.js](https://nodejs.org/) (versione consigliata X o superiore)
-- [npm](https://www.npmjs.com/) o [Yarn](https://yarnpkg.com/)
+Follow these instructions to set up Pixo locally on your machine.
 
-### Installazione
+### Prerequisites
 
-1. **Clona il repository:**
+- [Node.js](https://nodejs.org/) (recommended version X or higher)
+- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+
+### Installation
+
+1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/tuo-username/pixo.git
+    git clone https://github.com/your-username/pixo.git
     cd pixo
     ```
 
-2. **Installa le dipendenze:**
+2. **Install dependencies:**
 
     ```bash
     npm install
     ```
 
-    oppure, se preferisci Yarn:
+    or if you prefer Yarn:
 
     ```bash
     yarn install
     ```
 
-### Esecuzione del Progetto
+### Running the Project
 
-Avvia il server di sviluppo con il comando:
+Start the development server with:
 
 ```bash
-npm start
+npm run dev
 ```
 
-Questo lancerà l'applicazione su [http://localhost:3000](http://localhost:3000).
+This will launch the application at [http://localhost:5173/](http://localhost:5173/).
 
-### Build per la Produzione
+### Building for Production
 
-Per compilare il progetto in modalità produzione:
+To build the project for production, run:
 
 ```bash
 npm run build
 ```
 
-I file generati saranno disponibili nella cartella `build/` e potranno essere distribuiti su un servizio di hosting statico, come Netlify.
+The build output will be generated in the `dist/` folder and can be deployed to any static hosting service like Netlify.
 
-## Contributi
+## Contributing
 
-I contributi sono benvenuti! Se hai suggerimenti o miglioramenti, sentiti libero di aprire una issue o inviare una pull request.
+Contributions are welcome! If you have any suggestions or improvements, feel free to open an issue or submit a pull request.
 
-## Licenza
+## License
 
-Questo progetto è rilasciato sotto licenza MIT – consulta il file [LICENSE](LICENSE) per maggiori dettagli.
+This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for more details.
 
-## Ringraziamenti
+## Acknowledgments
 
-- Un grazie speciale a tutti i collaboratori e sostenitori.
-- L'ispirazione per Pixo nasce dal desiderio di rendere ogni giornata un po' più luminosa.
+- Special thanks to all collaborators and supporters.
+- Pixo was inspired by the desire to brighten every day with positive content.
 
 ---
 
-Questo README fornisce una panoramica chiara del progetto, le istruzioni per iniziare e le informazioni utili per chi volesse contribuire. Puoi personalizzare ulteriormente i dettagli (come la versione consigliata di Node.js o il link del repository GitHub) in base alle specifiche del tuo progetto.
-
-[citeturn0fetch0]
+Feel free to customize this README further to match any additional project specifics or requirements.
