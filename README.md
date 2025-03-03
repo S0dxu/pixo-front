@@ -23,7 +23,6 @@ Follow these instructions to set up Pixo locally on your machine.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (recommended version X or higher)
 - [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
 
 ### Installation
@@ -31,7 +30,7 @@ Follow these instructions to set up Pixo locally on your machine.
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/pixo.git
+    git clone https://github.com/S0dxu/pixo.git
     cd pixo
     ```
 
@@ -81,5 +80,3 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 - Pixo was inspired by the desire to brighten every day with positive content.
 
 ---
-
-Feel free to customize this README further to match any additional project specifics or requirements.
