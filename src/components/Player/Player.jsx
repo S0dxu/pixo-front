@@ -330,6 +330,21 @@ const handleScrollUp = () => {
   };
 
   useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowDown") {
+        handleScroll();
+      } else if (event.key === "ArrowUp") {
+        handleScrollUp();
+      }
+    };
+  
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [loading, lastScrollTime, isAnimating]);  
+
+  useEffect(() => {
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchmove", handleTouchMove, { passive: false });
     return () => {
