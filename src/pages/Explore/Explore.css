@@ -7,6 +7,11 @@
     gap: 5px;
     padding: 65px 0px /* calc(100vh - 530px) 0px */ !important;
 }
+
+.explore-cnt {
+    background-color: #0c0f14 !important;
+    height: 100vh;
+}
   
 .explore .image-containera {
     position: relative;

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import "./Upload.css";
@@ -22,7 +22,7 @@ const Upload = () => {
     const [videoLink, setVideoLink] = useState("");
     const [videoTitle, setVideoTitle] = useState("");
     const token = localStorage.getItem("token") ? localStorage.getItem("token") : ""
-    
+      
     const songsList = [
         { title: "None", link: "" },
         { title: "Ransom", link: "https://www.soundboard.com/track/download/1052113" },
@@ -120,7 +120,7 @@ const Upload = () => {
                 tags: hashtags
             };
     
-            console.log('Sending data:', data);
+            /* console.log('Sending data:', data); */
     
             const response = await fetch("https://pixo-backend-version-1-2.onrender.com/upload-image", {
                 method: "POST",
@@ -133,7 +133,7 @@ const Upload = () => {
             if (!response.ok) throw new Error("Error sending data");
     
             const responseData = await response.json();
-            console.log(responseData);
+            /* console.log(responseData); */
 
             navigate("./../foryou");
         } catch (error) {
@@ -270,7 +270,13 @@ const Upload = () => {
             </div>
             <div className="phone-cnt" onClick={play}>
                 <img src={phone} className="phone" />
-                {link.endsWith(".mp4") ? (<video ref={videoRef} loop autoPlay className="img" ><source src={link} type="video/mp4"/></video>) : (<img src={link} className="img" />)}
+                {link.endsWith(".mp4") ? (
+                    <video ref={videoRef} loop autoPlay className="img">
+                        <source src={link} type="video/mp4" />
+                    </video>
+                ) : (
+                    <img src={link} className="img" />
+                )}
             </div>
             <button className="post-bnt" onClick={sendToMainFunc}>Post</button>
         </div>

@@ -197,10 +197,8 @@
 
 .upload .img {
     width: 274px;
-    max-height: fit-content;
-    height: 570px;
-    /* border-radius: 60px; */
     object-fit: cover;
+    max-height: fit-content;
     position: absolute;
     left: 50%;
     top: calc(50% - 3px);
