@@ -26,51 +26,55 @@ const Create = () => {
     const validateFile = (file) => {
         setLoading(true);
         if (file && allowedTypes.includes(file.type)) {
-          setFile(file);
-          uploadImage(file).then(link => {
-            /* console.log(link); */
-            setLoading(false);
-            navigate("./../upload", { state: { file, link } });
-
-          }).catch(error => {
-            console.error("error uploading image:", error);
-          });
-          setError("");
+            setFile(file);
+            uploadImage(file, clientId)
+              .then(link => {
+                console.log(link);
+                setLoading(false);
+                navigate("./../upload", { state: { file, link } });
+              })
+              .catch(error => {
+                console.error("error uploading image:", error);
+              });
+            setError("");
         } else {
-          setFile(null);
-          setError("Format not supported. Use PNG, JPG, JPEG or MP4.");
-          setLoading(false);
-        }
-    };      
-      
-    const uploadImage = async (file) => {
-        try {
-            const formData = new FormData();
-            formData.append("image", file);
-        
-            const response = await fetch("https://pixo-backend-version-1-2.onrender.com/upload-image-to-imgur", {
-            method: "POST",
-            body: formData,
-            });
-        
-            if (!response.ok) throw new Error("Error sending data");
-        
-            const responseData = await response.json();
-            /* console.log(responseData); */
-            if (responseData.success) {
-            return responseData.data.link;
-            } else {
-            throw new Error("Error uploading image");
-            }
-        } catch (error) {
+            setFile(null);
+            setError("Format not supported. Use PNG, JPG, JPEG or MP4.");
             setLoading(false);
-            console.error("Error:", error);
         }
     };
-    
-    if (loading) return <div className="loading-screen-animation">
-        <img src={load} alt="" />
-    </div>;
+
+    async function uploadImage(imagePath, clientId) {
+        const url = "https://api.imgur.com/3/upload";
+        const headers = {
+            "Authorization": `Client-ID ${clientId}`
+        };
+
+        const formData = new FormData();
+        formData.append('image', imagePath);
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: formData
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            return data.data.link;
+        } else {
+            return "error uploading image";
+        }
+    }
+
+    const clientId = "3b4fd0382862345";
+
+    if (loading)
+        return (
+            <div className="loading-screen-animation">
+                <img src={load} alt="" />
+            </div>
+        );
 
     return (
         <div 
