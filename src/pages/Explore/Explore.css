@@ -9,7 +9,6 @@
 }
 
 .explore-cnt {
-    background-color: #0c0f14 !important;
     height: 100vh;
 }
   
@@ -117,6 +116,11 @@
 
     .explore .image-containera {
         border-radius: 0px;
+    }
+
+    .explore-cnt {
+        background-color: #0c0f14 !important;
+        height: 100vh;
     }
 }
 
