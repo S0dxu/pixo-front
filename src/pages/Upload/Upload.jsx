@@ -270,12 +270,12 @@ const Upload = () => {
             </div>
             <div className="phone-cnt" onClick={play}>
                 <img src={phone} className="phone" />
-                {link.endsWith(".mp4") ? (
+                {link?.endsWith(".mp4") ? (
                     <video ref={videoRef} loop autoPlay className="img">
                         <source src={link} type="video/mp4" />
                     </video>
                 ) : (
-                    <img src={link} className="img" />
+                    <img src={link} className="img" alt="Uploaded" />
                 )}
             </div>
             <button className="post-bnt" onClick={sendToMainFunc}>Post</button>
