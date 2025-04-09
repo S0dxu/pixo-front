@@ -43,8 +43,8 @@ const Profile = () => {
         const fetchData = async () => {
             try {
                 const [userResponse, imagesResponse] = await Promise.all([
-                    fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-by-id/profile/${username}`),
-                    fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-images/${username}`)
+                    fetch(`https://pixo-backend.vercel.app/get-user-by-id/profile/${username}`),
+                    fetch(`https://pixo-backend.vercel.app/get-user-images/${username}`)
                 ]);
     
                 setError(false);

@@ -122,7 +122,7 @@ const Upload = () => {
     
             /* console.log('Sending data:', data); */
     
-            const response = await fetch("https://pixo-backend-version-1-2.onrender.com/upload-image", {
+            const response = await fetch("https://pixo-backend.vercel.app/upload-image", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

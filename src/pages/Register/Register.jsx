@@ -83,7 +83,7 @@ function Register() {
     };
 
     try {
-      const response = await fetch("https://pixo-backend-version-1-2.onrender.com/register", {
+      const response = await fetch("https://pixo-backend.vercel.app/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

@@ -12,7 +12,7 @@ const Explore = () => {
 
     const fetchImages = async () => {
         try {
-            let endpoint = `https://pixo-backend-version-1-2.onrender.com/get-all-images?limit=20&page=${page}`;
+            let endpoint = `https://pixo-backend.vercel.app/get-all-images?limit=20&page=${page}`;
             if (searchQuery.trim() !== "") {
                 endpoint += `&search=${encodeURIComponent(searchQuery)}`;
             }

@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen }) => {
     useEffect(() => {
         const username = getUsernameFromToken();
         if (username) {
-          fetch(`https://pixo-backend-version-1-2.onrender.com/get-user-by-id/profile/${username}`)
+          fetch(`https://pixo-backend.vercel.app/get-user-by-id/profile/${username}`)
             .then(response => response.json())
             .then(data => {
               if (data.picture) {
