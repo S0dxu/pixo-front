@@ -366,6 +366,10 @@
     height: 20px;
 }
 
+.close-button svg path {
+    fill: #000;
+}
+
 .player .copy-button {
     background-color: transparent;
     border: none;
@@ -515,6 +519,10 @@
 
     .close-button svg {
         transform: scale(.7);
+    }
+
+    .close-button svg path {
+        fill: #000;
     }
 
     .player {
