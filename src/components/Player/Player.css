@@ -521,7 +521,8 @@
         transform: scale(.7);
     }
 
-    .close-button svg path {
+    .close-button svg path,
+    .copy-button svg path {
         fill: #000;
     }
 
