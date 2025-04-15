@@ -659,6 +659,82 @@
     border-radius: 8px;
 }
 
+.close-button-com {
+    width: 30px;
+    height: 30px;
+    padding-right: 20px;
+}
+
+.comment-item div {
+    display: flex;
+    align-items: start;
+    gap: 15px;
+}
+
+.comment-item .cmt-d {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    margin: 0;
+    gap: 0;
+}
+
+.comment-item .cmt-d div {
+    gap: 7px;
+}
+
+.comment-item .cmt-d p {
+    margin: 0;
+    max-width: 350px;
+    word-wrap: break-word;
+    word-break: break-word;
+    font-size: 12px;
+    font-weight: 400;
+    top: 1px;
+    position: relative;
+}
+
+.comment-item .cmt-d .comment-author {
+    font-weight: 600;
+    font-size: 13px;
+    top: 0;
+}
+
+.comment-picture {
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.comments-header {
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9;
+    z-index: 1000;
+    border-bottom: 1px solid #dadada;
+}
+
+.comments-header div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+}
+
+.comments-header h3 {
+    font-weight: 600;
+}
+
+.comments-header div p {
+    position: relative;
+    top: 2px;
+    font-weight: 400;
+    color: #606060;
+}
+
 .comments-list {
     margin-bottom: 20px;
 }
@@ -667,30 +743,126 @@
     margin-bottom: 10px;
 }
 
-.add-comment {
-    display: flex;
-    flex-direction: column;
+.comments-visible {
+    left: 50% !important;
+    transition: 0.2s ease;
 }
 
-.add-comment textarea {
-    width: 100%;
-    height: 80px;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-.add-comment button {
-    align-self: flex-end;
-    padding: 8px 15px;
-    background-color: #4CAF50;
-    color: white;
+.comments-modal hr {
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    border-bottom: 1px solid #dadada;
 }
 
-.add-comment button:hover {
-    background-color: #45a049;
+.comment-form {
+    height: 50px;
+    border-top: 1px solid #dadada;
+    background-color: #f9f9f9;
+    bottom: 29px;
+    border-radius: 10px;
+    position: fixed;
+    width: 435px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+}
+
+.comment-form input {
+    border: none;
+    outline: none;
+    width: calc(100% - 80px);
+    background-color: #f0f0f0;
+    padding: 8px 20px;
+    font-family: "Poppins";
+    border-radius: 4px;
+}
+
+.comment-form svg {
+    width: 30px;
+}
+
+.comments-modal {
+    min-width: 450px;
+    display: block;
+    z-index: 999;
+    border-radius: 10px;
+    height: calc(100dvh - 60px);
+    position: fixed;
+    right: 30px;
+    top: 0;
+    border: 1px solid #dadada;
+    margin: 30px;
+    overflow-Y: auto;
+}
+
+.comments-visible {
+    left: 40% !important;
+    transition: 0.2s ease;
+}
+  
+.comments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comments-list {
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.comment-item {
+    border-bottom: 1px solid #ddd;
+    padding: 0px 0 10px 0;
+}
+
+.comment-item:last-child {
+    margin-bottom: 100px;
+}
+
+.comment-date {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+@media (max-width: 1400px) {
+    .comments-modal {
+        background-color: #f9f9f9;
+        position: absolute;
+        left: calc(50% - 35px);
+        top: calc(20% - 70px);
+        max-height: 80dvh;
+        transform: translateX(-50%);
+        width: 400px;
+    }
+
+    .comment-form {
+        width: calc(100dvw - 10px);
+        position: sticky;
+        bottom: 0;
+    }
+    
+    .comments-visible {
+        left: 50% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .comments-modal {
+        background-color: #f9f9f9;
+        position: absolute;
+        left: calc(50% - 30px);
+        overflow-x: hidden;
+        top: calc(20% - 30px);
+        border-radius: 10px 10px 0 0;
+        z-index: 10000;
+        max-height: 80dvh;
+        min-width: 100px;
+        transform: translateX(-50%);
+        width: 100dvw;
+    }
+
+    .comment-text {
+        margin-right: 20px !important;
+    }
 }
