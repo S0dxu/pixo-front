@@ -817,7 +817,11 @@
 }
 
 .comment-item:last-child {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
+}
+
+.comment-item:first-child {
+    margin-top: 10px;
 }
 
 .comment-date {
@@ -825,41 +829,90 @@
     color: #666;
 }
 
+.show-com {
+    animation: slideUp .2s ease;
+}
+
+.del-com {
+    animation: slideDown .2s ease;
+}
+
 @media (max-width: 1400px) {
     .comments-modal {
         background-color: #f9f9f9;
         position: absolute;
         left: calc(50% - 35px);
-        top: calc(20% - 70px);
+        bottom: 0;
         max-height: 80dvh;
         transform: translateX(-50%);
         width: 400px;
     }
 
+    .comments-modal {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .comments-modal {
+        background-color: #f9f9f9;
+        position: absolute;
+        overflow-x: hidden;
+        top: 10vh;
+        z-index: 1000;
+        max-height: 80dvh;
+        transform: translateX(-50%);
+    }
+
+    .comments-list {
+        margin: 0;
+    }
+
     .comment-form {
-        width: calc(100dvw - 10px);
-        position: sticky;
+        position: absolute;
         bottom: 0;
     }
     
     .comments-visible {
         left: 50% !important;
     }
+    
+    @keyframes slideUp {
+        0% {
+            transform: translate(-50%, 50%);
+        }
+        100% {
+            transform: translateY(-50%, -50%);
+        }
+    }
+
+    @keyframes slideDown {
+        100% {
+            transform: translate(-50%, 50%);
+        }
+        0% {
+            transform: translateY(-50%, -50%);
+        }
+    }
 }
 
 @media (max-width: 600px) {
     .comments-modal {
-        background-color: #f9f9f9;
-        position: absolute;
         left: calc(50% - 30px);
-        overflow-x: hidden;
-        top: calc(20% - 30px);
         border-radius: 10px 10px 0 0;
-        z-index: 10000;
-        max-height: 80dvh;
         min-width: 100px;
-        transform: translateX(-50%);
-        width: 100dvw;
+        height: 600px;
+        min-height: 600px;
+        position: fixed;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100dvw);
+        top: calc(100dvh - 329px) !important;
+    }
+
+    .comment-form {
+        width: calc(100dvw - 10px);
     }
 
     .comment-text {

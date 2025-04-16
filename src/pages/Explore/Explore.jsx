@@ -8,9 +8,12 @@ const Explore = () => {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
+    const [loading, setLoading] = useState(false);
     const videoRefs = useRef([]);
 
     const fetchImages = async () => {
+        if (loading || !hasMore) return;
+        setLoading(true);
         try {
             let endpoint = `https://pixo-backend.vercel.app/get-all-images?limit=20&page=${page}`;
             if (searchQuery.trim() !== "") {
@@ -33,6 +36,8 @@ const Explore = () => {
             }
         } catch (error) {
             console.error("Errore:", error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -44,13 +49,18 @@ const Explore = () => {
         setSearchQuery(e.target.value);
         setPage(1);
         setImages([]);
+        setHasMore(true);
     };
 
     const handleScroll = useCallback(() => {
-        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 10 && hasMore) {
+        const scrollTop = document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const scrollHeight = document.documentElement.scrollHeight;
+
+        if (scrollTop + windowHeight >= scrollHeight - 1 && hasMore && !loading) {
             setPage(prevPage => prevPage + 1);
         }
-    }, [hasMore]);
+    }, [hasMore, loading]);
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
@@ -77,10 +87,6 @@ const Explore = () => {
         <div className="explore-cnt">
             <div className="explore">
                 <div className="search-container">
-                    {/* <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17 17L21 21" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke="#fff" strokeWidth="2" />
-                    </svg> */}
                     <input
                         type="text"
                         className="search-input"
@@ -109,7 +115,7 @@ const Explore = () => {
                                 </svg>
                             </div>
                         ) : (
-                            <img src={img.url} alt="Immagine" />
+                            <img src={img.url} />
                         )}
                     </div>
                 ))}
