@@ -466,11 +466,7 @@
     }
 
     .player .profile-icon img {
-        width: 40px !important;
-        height: 40px !important;
-        border-radius: 30%;
-        margin-top: 5px;
-        object-fit: cover;
+        margin-top: 10px;
     }
 
     .player svg path {
