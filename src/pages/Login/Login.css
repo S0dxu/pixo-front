@@ -32,10 +32,11 @@ input[type="file"]:valid + .file-label,
     font-family: "Poppins";
     padding: 0 5px;
     font-size: 12px;
-    border: 1px solid #dbdbdb;
-    background-color: #f1f1f1;
+    border: 1px solid #2f2f2f;
+    background-color: #1f1f1f;
     border-radius: 5px;
     outline: none;
+    color: #fff;
 }
 
 .login form button {
@@ -88,7 +89,7 @@ input[type="file"]:valid + .file-label,
 .divider::after {
     content: "";
     flex: 1;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #2f2f2f !important;
 }
 
 .divider:not(:empty)::before {
@@ -101,13 +102,15 @@ input[type="file"]:valid + .file-label,
 
 .divider-text {
     font-size: 14px;
-    color: #808080;
+    color: #a8a8a8;
 }
 
 .login p {
     text-align: center;
     font-size: 14px;
     margin-top: 20px;
+    color: #fff;
+    font-weight: 300;
 }
 
 .login p a {
