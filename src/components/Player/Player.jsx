@@ -113,7 +113,7 @@ const Player = () => {
 
     /* console.log('Sending data:', data); */
 
-    const response = await fetch("http://127.0.0.1:5000/add-comment", {
+    const response = await fetch("https://pixo-backend.vercel.app/add-comment", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -137,7 +137,7 @@ const Player = () => {
     if (!currentImageId) return;
   
     try {
-      const response = await fetch(`http://127.0.0.1:5000/get-comments/${currentImageId}`, {
+      const response = await fetch(`https://pixo-backend.vercel.app/get-comments/${currentImageId}`, {
       });
   
       if (response.ok) {
@@ -219,7 +219,7 @@ const Player = () => {
   const fetchImageById = async (imgId) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://127.0.0.1:5000/get-image-by-id/${imgId}`);
+      const response = await fetch(`https://pixo-backend.vercel.app/get-image-by-id/${imgId}`);
       if (!response.ok) throw new Error("error fetching ID");
       const data = await response.json();
       setImageUrl(data.url);
@@ -253,7 +253,7 @@ const Player = () => {
   const fetchRandomImage = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://127.0.0.1:5000/get-random-image");
+      const response = await fetch("https://pixo-backend.vercel.app/get-random-image");
       if (!response.ok) throw new Error("Error fetching image");
       const data = await response.json();
       if (currentImageId) {
@@ -493,7 +493,7 @@ const Player = () => {
       return;
     }
     try {
-      const imageResponse = await fetch(`http://127.0.0.1:5000/image/${imageId}`);
+      const imageResponse = await fetch(`https://pixo-backend.vercel.app/image/${imageId}`);
       if (!imageResponse.ok) {
         console.error("Image fetch error");
         setIsLiking(false);
@@ -501,7 +501,7 @@ const Player = () => {
       }
       const imageData = await imageResponse.json();
       const alreadyLiked = imageData.likes.includes(userId);
-      const url = alreadyLiked ? "http://127.0.0.1:5000/dislike-image" : "http://127.0.0.1:5000/like-image";
+      const url = alreadyLiked ? "https://pixo-backend.vercel.app/dislike-image" : "https://pixo-backend.vercel.app/like-image";
       const response = await fetch(url, {
         method: "POST",
         headers: {
