@@ -115,7 +115,7 @@ const Profile = () => {
                 {/* <img src="https://media.istockphoto.com/id/1320815200/photo/wall-black-background-for-design-stone-black-texture-background.jpg?s=612x612&w=0&k=20&c=hqcH1pKLCLn_ZQ5vUPUfi3BOqMWoBzbk5-61Xq7UMsU=" alt="" /> */}
                 {profilePic ? (<img src={profilePic} alt="" />) : (<img src="https://exoffender.org/wp-content/uploads/2016/09/empty-profile.png" alt="" />)}
                 <div className="right">
-                    <h4>{user.username}</h4>
+                    <h4>@{user.username}</h4>
                 </div>
             </div>
             <hr />

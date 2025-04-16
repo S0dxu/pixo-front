@@ -5,6 +5,10 @@
     position: relative;
 }
 
+.user-not-found h1 {
+    color: #fff !important;
+}
+
 .profile .top {
     display: flex;
     position: relative;
@@ -54,7 +58,7 @@
 
 .profile hr {
     border: none;
-    border-top: 1px solid #dbdbdb;
+    border-top: 1px solid #1f1f1f;
     margin-bottom: 20px;
 }
 
@@ -88,6 +92,10 @@
     background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 1%, transparent);
 }
 
+.loading-screen-animation {
+    background-color: #6969692a;
+}
+
 .profile .logout {
     position: absolute;
     display: block;
@@ -95,7 +103,7 @@
     right: 0px;
     border: none;
     background-color: transparent;
-    color: #000000;
+    color: #fff;
     font-weight: 400;
     cursor: pointer;
     z-index: 200;
@@ -117,7 +125,7 @@
 }
 
 .user-not-found svg {
-    fill: #777;
+    fill: #a0a0a0;
     width: 60px;
     height: 60px;
 }
@@ -174,6 +182,7 @@
         font-size: 18px !important;
         margin-top: -30px !important;
         margin-bottom: 30px !important;
+        color: #fff;
     }
 
     .profile .top img {
