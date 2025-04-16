@@ -122,7 +122,7 @@
     flex-direction: column;
     position: relative;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .player .player-volume {
@@ -207,9 +207,9 @@
 }
 
 .player .profile-icon img {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    border-radius: 30%;
     object-fit: cover;
 }
 
@@ -465,6 +465,14 @@
         margin-bottom: 5px;
     }
 
+    .player .profile-icon img {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 30%;
+        margin-top: 5px;
+        object-fit: cover;
+    }
+
     .player svg path {
         fill: #fff;
     }    
@@ -716,6 +724,7 @@
     object-fit: cover;
     height: 40px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .comments-header {
@@ -788,6 +797,7 @@
     width: calc(100% - 80px);
     background-color: #1f1f1f;
     padding: 8px 20px;
+    color: #fff;
     font-family: "Poppins";
     border-radius: 4px;
 }
@@ -827,7 +837,6 @@
 
 .comments-list {
     overflow-y: auto;
-    margin-top: 1rem;
 }
 
 .comment-item {
@@ -860,24 +869,45 @@
 }
 
 ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 10px;
 }
   
 ::-webkit-scrollbar-track {
     background: #0f0f0f;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
 }
 
 ::-webkit-scrollbar-thumb {
     background: #1f1f1f;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: #1b1b1b;
 }
 
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.comments-unvisible {
+    left: 50% !important;
+    transition: 0.2s ease;
+}
   
 @media (max-width: 1400px) {
     .comments-modal {
@@ -897,7 +927,8 @@
     }
     
     .comment-form input {
-        background-color: #dadada;
+        background-color: #eee;
+        color: #000;
     }
     
     .comment-form svg path {
@@ -914,7 +945,6 @@
 
     ::-webkit-scrollbar {
         width: 6px;
-        height: 12px;
     }
 
     ::-webkit-scrollbar-track {

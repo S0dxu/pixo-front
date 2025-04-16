@@ -553,7 +553,7 @@ const Player = () => {
         commentsRef.current.classList.remove('del-com');
       }
     }, 200);
-  };  
+  };
 
   return (
     <>
@@ -606,7 +606,7 @@ const Player = () => {
         </div>
       )}
 
-      <div className={`player ${isCommentsVisible ? "comments-visible" : ""}`}>
+      <div className={`player ${isCommentsVisible ? "comments-visible" : "comments-unvisible"}`}>
         <div
           className={`player-with-all-the-fucking-other-stuff ${isScrolling ? "scroll-to" : ""} ${isScrollingUp ? "scroll-to-up" : ""}`}
           onMouseDown={handleMouseDown}
@@ -666,20 +666,6 @@ const Player = () => {
           />
         </div>
         <div className={`player-controls ${isScrolling ? "scroll-to-other" : ""} ${isScrollingUp ? "scroll-to-1000" : ""} ${IsOpacity ? "opacity0-2" : ""}`}>
-          <div className='profile-icon'>
-            <img
-              onClick={takeToUser}
-              src={picture ? picture : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg"}
-            />
-            <span>
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M6 12h6V6h1v6h6v1h-6v6h-1v-6H6z"></path>
-                  <path fill="none" d="M0 0h24v24H0z"></path>
-                </g>
-              </svg>
-            </span>
-          </div>
           <li>
             <svg className={`like ${isLiked ? "liked" : ""}`} onClick={handleLike} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -717,6 +703,22 @@ const Player = () => {
               </g>
             </svg>
             <p></p>
+          </li>
+          <li>
+            <div className='profile-icon'>
+              <img
+                onClick={takeToUser}
+                src={picture ? picture : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/A_black_image.jpg/640px-A_black_image.jpg"}
+              />
+              <span>
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M6 12h6V6h1v6h6v1h-6v6h-1v-6H6z"></path>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                  </g>
+                </svg>
+              </span>
+            </div>
           </li>
         </div>
         <div className={`message-box ${isVisible ? 'show' : ''}`}>
