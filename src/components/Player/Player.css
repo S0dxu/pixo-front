@@ -308,8 +308,9 @@
     font-weight: 500;
 }
 
-.message-box.flex-cnt li p {
-    font-size: 14px;
+.message-box .flex-cnt li p {
+    font-size: 12px;
+    font-weight: 400;
     color: #333;
 }
 
