@@ -26,8 +26,6 @@ const Player = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible2, setIsVisible2] = useState(false);
-  const audioRef = useRef(null);
-  const videoRef = useRef(null);
   const [views, setViews] = useState(0);
   const [currentImageId, setCurrentImageId] = useState("");
   const [likes, setLikes] = useState(0);
@@ -44,15 +42,20 @@ const Player = () => {
   const [isImage, setIsImage] = useState(true);
   const [picture, setPicture] = useState(null);
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
+  const [textToCopy, setTextToCopy] = useState("");
+  const [isPaused, setIsPaused] = useState(false);
+
   const historyStack = useRef([]);
   const futureStack = useRef([]);
-  const [textToCopy, setTextToCopy] = useState("");
   const lastClickTime = useRef(0);
   const imageRef = useRef(null);
+  const audioRef = useRef(null);
+  const videoRef = useRef(null);
   const commentsRef = useRef(null);
-  const [videoDuration, setVideoDuration] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   let lastTouchY = 0;
+
   const formattedDate = date
     ? (() => {
         const publishedDate = new Date(date);
@@ -102,6 +105,27 @@ const Player = () => {
       localStorage.removeItem("showComments");
     }
   }, []);
+  
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+  
+    const onLoaded = () => {
+      setVideoDuration(video.duration);
+      setProgress(0);
+    };
+    const onTimeUpdate = () => {
+      setProgress((video.currentTime / video.duration) * 100);
+    };
+  
+    video.addEventListener('loadedmetadata', onLoaded);
+    video.addEventListener('timeupdate', onTimeUpdate);
+  
+    return () => {
+      video.removeEventListener('loadedmetadata', onLoaded);
+      video.removeEventListener('timeupdate', onTimeUpdate);
+    };
+  }, [currentImageId]);
   
 
   const handleAddComment = async (e) => {
@@ -642,14 +666,10 @@ const Player = () => {
                     <img src="https://webdi.fr/img/couleurs/000000.png" />
                   )}
                   <div className="gradient-overlay">
-                    {!isImage && videoDuration > 0 && (
+                    { !isImage && videoDuration > 0 && (
                       <div
-                        key={currentImageId}
                         className="progress-bar"
-                        style={{
-                          animationDuration: `${videoDuration}s`,
-                          animationPlayState: isPaused ? 'paused' : 'running'
-                        }}
+                        style={{ width: `${progress}%` }}
                       />
                     )}
                   </div>

@@ -330,20 +330,24 @@
 .gradient-overlay {
     overflow: hidden;
 }
-  
+
 .progress-bar {
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     height: 2px;
-    background-color: #e41b45;
-    width: 0%;
-    animation-name: grow;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
+    background: #e41b45;
+    transition: width 0.1s linear;
+}
+
+.gradient-overlay {
+    cursor: pointer;    /* evidenzia che è interattivo */
 }
   
+.gradient-overlay .progress-bar {
+    transition: none;   /* perché il seek è già “istantaneo” */
+}
+
 @keyframes grow {
     from { width: 0%; }
     to   { width: 100%; }
