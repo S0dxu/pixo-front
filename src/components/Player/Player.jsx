@@ -50,6 +50,8 @@ const Player = () => {
   const lastClickTime = useRef(0);
   const imageRef = useRef(null);
   const commentsRef = useRef(null);
+  const [videoDuration, setVideoDuration] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   let lastTouchY = 0;
   const formattedDate = date
     ? (() => {
@@ -113,7 +115,7 @@ const Player = () => {
 
     /* console.log('Sending data:', data); */
 
-    const response = await fetch("https://pixo-backend.vercel.app/add-comment", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/add-comment`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -137,17 +139,17 @@ const Player = () => {
     if (!currentImageId) return;
   
     try {
-      const response = await fetch(`https://pixo-backend.vercel.app/get-comments/${currentImageId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/get-comments/${currentImageId}`, {
       });
   
       if (response.ok) {
         const data = await response.json();
         setComments(data.comments);
       } else {
-        console.error("Errore nel recupero dei commenti:", response.status);
+        console.error("error: ", response.status);
       }
     } catch (error) {
-      console.error("Errore di rete nel recupero dei commenti:", error);
+      console.error("error:", error);
     }
   };
   
@@ -219,7 +221,7 @@ const Player = () => {
   const fetchImageById = async (imgId) => {
     setLoading(true);
     try {
-      const response = await fetch(`https://pixo-backend.vercel.app/get-image-by-id/${imgId}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/get-image-by-id/${imgId}`);
       if (!response.ok) throw new Error("error fetching ID");
       const data = await response.json();
       setImageUrl(data.url);
@@ -253,7 +255,7 @@ const Player = () => {
   const fetchRandomImage = async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://pixo-backend.vercel.app/get-random-image");
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/get-random-image`);
       if (!response.ok) throw new Error("Error fetching image");
       const data = await response.json();
       if (currentImageId) {
@@ -493,7 +495,7 @@ const Player = () => {
       return;
     }
     try {
-      const imageResponse = await fetch(`https://pixo-backend.vercel.app/image/${imageId}`);
+      const imageResponse = await fetch(`${import.meta.env.VITE_API_URL}/image/${imageId}`);
       if (!imageResponse.ok) {
         console.error("Image fetch error");
         setIsLiking(false);
@@ -501,7 +503,7 @@ const Player = () => {
       }
       const imageData = await imageResponse.json();
       const alreadyLiked = imageData.likes.includes(userId);
-      const url = alreadyLiked ? "https://pixo-backend.vercel.app/dislike-image" : "https://pixo-backend.vercel.app/like-image";
+      const url = alreadyLiked ? `${import.meta.env.VITE_API_URL}/dislike-image` : `${import.meta.env.VITE_API_URL}/like-image`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -621,24 +623,36 @@ const Player = () => {
               isImage ? (
                 <img src={imageUrl} className="img-url" />
               ) : (
-                <video
-                  key={currentImageId}
-                  autoPlay
-                  loop
-                  ref={videoRef}
-                  onLoadedMetadata={() => {
-                    if (videoRef.current) {
-                      videoRef.current.volume = audio;
-                    }
-                  }}
-                >
-                  <source src={imageUrl} type="video/mp4" />
-                </video>
-              )
-            ) : (
-              <img src="https://webdi.fr/img/couleurs/000000.png" />
-            )}
-            <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="gradient-overlay"></div>
+                    <video
+                      key={currentImageId}
+                      autoPlay
+                      loop
+                      ref={videoRef}
+                      onLoadedMetadata={() => {
+                        const d = videoRef.current.duration;
+                        setVideoDuration(d);
+                        videoRef.current.volume = audio;
+                      }}
+                      onPlay={() => setIsPaused(false)}
+                      onPause={() => setIsPaused(true)}
+                    >
+                      <source src={imageUrl} type="video/mp4" />
+                    </video>              
+                  )) : (
+                    <img src="https://webdi.fr/img/couleurs/000000.png" />
+                  )}
+                  <div className="gradient-overlay">
+                    {!isImage && videoDuration > 0 && (
+                      <div
+                        key={currentImageId}
+                        className="progress-bar"
+                        style={{
+                          animationDuration: `${videoDuration}s`,
+                          animationPlayState: isPaused ? 'paused' : 'running'
+                        }}
+                      />
+                    )}
+                  </div>
             <p className={`desc ${IsOpacity ? "opacity0" : ""}`}>
               {author || "-"} · {formattedDate} <br />
               {title} <strong>{tags}</strong> <br />

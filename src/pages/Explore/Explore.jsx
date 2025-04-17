@@ -15,7 +15,7 @@ const Explore = () => {
         if (loading || !hasMore) return;
         setLoading(true);
         try {
-            let endpoint = `https://pixo-backend.vercel.app/get-all-images?limit=20&page=${page}`;
+            let endpoint = `${import.meta.env.VITE_API_URL}/get-all-images?limit=20&page=${page}`;
             if (searchQuery.trim() !== "") {
                 endpoint += `&search=${encodeURIComponent(searchQuery)}`;
             }

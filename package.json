@@ -13,6 +13,7 @@
     "axios": "^1.7.9",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
     "frontend": "file:",
     "install": "^0.13.0",
     "jwt-decode": "^4.0.0",

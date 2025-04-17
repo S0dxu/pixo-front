@@ -327,6 +327,28 @@
     width: calc(100% - 20px);
 }
 
+.gradient-overlay {
+    overflow: hidden;
+}
+  
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: #e41b45;
+    width: 0%;
+    animation-name: grow;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}
+  
+@keyframes grow {
+    from { width: 0%; }
+    to   { width: 100%; }
+}
+
 .message-also-pt2 {
     height: auto;
     display: flex;
@@ -464,6 +486,10 @@
         bottom: 10px;
         right: 5px;
         margin-bottom: 5px;
+    }
+
+    .progress-bar {
+        height: 3px;
     }
 
     .player .profile-icon img {

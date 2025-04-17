@@ -122,7 +122,7 @@ const Upload = () => {
     
             /* console.log('Sending data:', data); */
     
-            const response = await fetch("https://pixo-backend.vercel.app/upload-image", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/upload-image`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

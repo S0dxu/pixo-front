@@ -41,7 +41,7 @@ function Register() {
   async function uploadImage(file) {
     const url = "https://api.imgur.com/3/upload";
     const headers = {
-      "Authorization": `Client-ID 3b4fd0382862345`
+      "Authorization": `Client-ID ${import.meta.env.VITE_API_CLIENT_ID}`
     };
 
     const formData = new FormData();
@@ -83,7 +83,7 @@ function Register() {
     };
 
     try {
-      const response = await fetch("https://pixo-backend.vercel.app/register", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

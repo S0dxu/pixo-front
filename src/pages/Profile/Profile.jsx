@@ -43,8 +43,8 @@ const Profile = () => {
         const fetchData = async () => {
             try {
                 const [userResponse, imagesResponse] = await Promise.all([
-                    fetch(`https://pixo-backend.vercel.app/get-user-by-id/profile/${username}`),
-                    fetch(`https://pixo-backend.vercel.app/get-user-images/${username}`)
+                    fetch(`${import.meta.env.VITE_API_URL}/get-user-by-id/profile/${username}`),
+                    fetch(`${import.meta.env.VITE_API_URL}/get-user-images/${username}`)
                 ]);
     
                 setError(false);
