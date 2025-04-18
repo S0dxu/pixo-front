@@ -63,8 +63,8 @@
 }
   
 .create .drop-area:hover {
-    border-color: #0075dc;
-    background-color: #f0f7fd;
+    border-color: #2f2f2f2f;
+    background-color: #1f1f1f;
 }
   
 .create .file-name {

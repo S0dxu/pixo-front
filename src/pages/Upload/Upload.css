@@ -6,11 +6,12 @@
     padding: 30px;
     left: 300px;
     width: calc(100vw - 400px);
+    color: #fff;
 }
 
 .upload .image-result {
-    background-color: #fff;
-    border: 1px solid #ebebeb;
+    background-color: #0f0f0f;
+    border: 1px solid #2f2f2f;
     border-radius: 10px;
     padding: 20px;
     display: flex;
@@ -33,7 +34,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #008568;
+    color: #00ffc8;
     font-weight: 400;
     margin-bottom: 0px;
 }
@@ -48,8 +49,8 @@
     align-items: center;
     gap: 5px;
     text-decoration: none;
-    color: #000;
-    background-color: #f2f2f2;
+    color: #fff;
+    background-color: #1f1f1f;
     padding: 7px 10px;
     margin: 0px;
     border-radius: 7px;
@@ -66,8 +67,8 @@
 }
 
 .upload .description {
-    background-color: #fff;
-    border: 1px solid #ebebeb;
+    background-color: #0f0f0f;
+    border: 1px solid #2f2f2f;
     border-radius: 10px;
     padding: 20px;
     display: flex;
@@ -92,7 +93,7 @@
     width: calc(100% - 30px);
     height: 100px;
     border: none;
-    background-color: #f2f2f2;
+    background-color: #1f1f1f;
     padding: 10px 15px;
     font-size: 15px;
     outline: none;
@@ -117,27 +118,29 @@
 
 .upload input {
     border: none;
-    background-color: #f2f2f2;
+    background-color: #1f1f1f;
     padding: 10px 15px;
     font-family: "Poppins";
     border-radius: 5px 0 0 5px;
-    border-right: 1px solid #ffffff;
+    border-right: 1px solid #0f0f0f;
     font-size: 14px;
     outline: none;
+    color: #fff;
 }
 
 .upload button {
     background-color: red;
     border: none;
-    background-color: #f2f2f2;
+    background-color: #1f1f1f;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    color: #fff;
     width: 40px;
     font-family: "Poppins";
     border-radius: 0 5px 5px 0;
-    border-left: 1px solid #ffffff;
+    border-left: 1px solid #0f0f0f;
 }
 
 .char-count {
@@ -151,7 +154,7 @@
 .hashtags {
     display: flex;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 400;
     flex-direction: column;
     gap: 7px;
 }
@@ -161,15 +164,15 @@
     align-items: center;
     gap: 10px;
     width: fit-content;
-    background: #f2f2f2;
+    background: #1f1f1f;
     border-radius: 5px;
     padding: 4px 20px 4px 4px !important;
 }
 
 .hashtags .remove {
-    color: #e41b45;
+    color: #ff5a5a;
     cursor: pointer;
-    background-color: #fff;
+    background-color: #2f2f2f;
     padding: 4px !important;
     display: flex;
     align-items: center;
@@ -179,7 +182,7 @@
 .hashtags svg {
     width: 20px;
     height: 20px;
-    fill: #e41b45;
+    fill: #ff5a5a;
 }
 
 .upload .phone-cnt {
@@ -241,7 +244,7 @@
     /* padding: 3px 10px !important;
     border-bottom: 1px solid #b8b8b8;
     border-top: 1px solid #b8b8b8; */
-    color: #000;
+    color: #fff;
 }
 
 .upload .post-bnt {
@@ -342,7 +345,7 @@
     }
     
     .hashtags .remove {
-        color: #e41b45;
+        color: #ff5a5a;
         cursor: pointer;
         background-color: #fff;
         padding: 4px !important;
