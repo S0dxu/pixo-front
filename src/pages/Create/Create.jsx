@@ -27,7 +27,7 @@ const Create = () => {
         setLoading(true);
         if (file && allowedTypes.includes(file.type)) {
             setFile(file);
-            uploadImage(file, clientId)
+            uploadImage(file)
               .then(link => {
                 console.log(link);
                 setLoading(false);
@@ -44,10 +44,10 @@ const Create = () => {
         }
     };
 
-    async function uploadImage(imagePath, clientId) {
+    async function uploadImage(imagePath) {
         const url = "https://api.imgur.com/3/upload";
         const headers = {
-            "Authorization": `Client-ID ${clientId}`
+            "Authorization": `Client-ID ${import.meta.env.VITE_API_CLIENT_ID}`
         };
 
         const formData = new FormData();
@@ -66,8 +66,6 @@ const Create = () => {
             return "error uploading image";
         }
     }
-
-    const clientId = "3b4fd0382862345";
 
     if (loading)
         return (
