@@ -5,7 +5,7 @@ import './Player.css';
 import { jwtDecode } from "jwt-decode";
 import { formatDistanceToNow } from 'date-fns';
 import heart_smash from '../../assets/GIFPaint-2--unscreen.gif';
-import placeholder from '../../assets/placeholder.png';
+import placeholder from '../../assets/empty-profile.png';
 import commentsIcon from '../../assets/svgviewer-png-output (2).png';
 import random from '../../assets/d4667c5475734c188fd2738e446bde0b~c5_1080x1080.jpeg';
 
@@ -593,30 +593,39 @@ const Player = () => {
             <svg className="close-button-com" onClick={toggleCommentsModal} fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M202.82861,197.17188a3.99991,3.99991,0,1,1-5.65722,5.65624L128,133.65723,58.82861,202.82812a3.99991,3.99991,0,0,1-5.65722-5.65624L122.343,128,53.17139,58.82812a3.99991,3.99991,0,0,1,5.65722-5.65624L128,122.34277l69.17139-69.17089a3.99991,3.99991,0,0,1,5.65722,5.65624L133.657,128Z"></path> </g></svg>
           </div>
           <div className="comments-list">
-            {comments.length ? (
-              comments.map((comment, index) => (
+          {comments.length > 0 ? (
+            comments.map((comment, index) => {
+              const pic = comment.user?.picture || placeholder;
+              const username = comment.user?.username;
+
+              return (
                 <div key={index} className="comment-item">
                   <div>
                     <img 
                       className="comment-picture" 
-                      src={comment.user.picture}
-                      onClick={() => takeToUserUsingComments(comment.user.username)}
+                      src={pic}
+                      onClick={() => {
+                        if (username) takeToUserUsingComments(username);
+                      }}
                     />
-                    <div className='cmt-d'>
+                    <div className="cmt-d">
                       <div>
-                        <p className="comment-author">@{comment.user.username}</p>
+                        <p className="comment-author">
+                          {username ? `@${username}` : "deleted account"}
+                        </p>
                         <p className="comment-date">
-                          {comment.date ? `${formatDistanceToNow(new Date(comment.date))} ago` : ''}
+                          {comment.date
+                            ? `${formatDistanceToNow(new Date(comment.date))} ago`
+                            : ''}
                         </p>
                       </div>
                       <p className="comment-text">{comment.text}</p>
                     </div>
                   </div>
                 </div>
-              ))
-            ) : (
-              <></>
-            )}
+              );
+            })
+          ) : null}
           </div>
           <form onSubmit={handleAddComment} className="comment-form">
             <input
