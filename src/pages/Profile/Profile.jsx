@@ -12,20 +12,20 @@ const Profile = () => {
     const [isOwner, setIsOwner] = useState(false);
     const [error, setError] = useState(false);
     const [profilePic, setProfilePic] = useState(null);
+    const token = localStorage.getItem("token");
 
     const videoRefs = useRef([]);
 
     const getUsernameFromToken = () => {
-        const token = localStorage.getItem("token");
         if (token) {
             try {
                 const decodedToken = jwtDecode(token);
-                return decodedToken?.username || "";
+                return decodedToken?.username;
             } catch (error) {
                 console.error("error token:", error);
             }
         }
-        return "";
+        return false;
     };
 
     useEffect(() => {
@@ -38,6 +38,10 @@ const Profile = () => {
     }, [username]);
 
     useEffect(() => {
+        if (!token) {
+            navigate("/login");
+            return;
+        }
         if (!username) return;
     
         const fetchData = async () => {

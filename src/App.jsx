@@ -29,7 +29,7 @@ function App() {
       <Zoom />
       <Navbar />
       <Sidebar />
-      <AuthHandler />
+      {/* <AuthHandler /> */}
       <div className="content">
         <Routes>
           <Route path="/" element={<Navigate to="/foryou" />} />
@@ -50,7 +50,7 @@ function App() {
   );
 }
 
-function AuthHandler() {
+/* function AuthHandler() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
   const location = useLocation();
   const navigate = useNavigate();
@@ -67,6 +67,5 @@ function AuthHandler() {
   }, [location.pathname, navigate]);
 
   return null;
-}
-
+} */
 export default App;

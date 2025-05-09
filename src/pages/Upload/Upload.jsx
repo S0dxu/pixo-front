@@ -21,7 +21,7 @@ const Upload = () => {
     const videoRef = useRef(null)
     const [videoLink, setVideoLink] = useState("");
     const [videoTitle, setVideoTitle] = useState("");
-    const token = localStorage.getItem("token") ? localStorage.getItem("token") : ""
+    const token = localStorage.getItem("token")
       
     const songsList = [
         { title: "None", link: "" },
@@ -108,6 +108,10 @@ const Upload = () => {
     };
  */
     const sendToMainFunc = async () => {
+        if (!token) {
+            navigate("/login");
+            return;
+        }
         setLoading(true);
         try {
             const data = {

@@ -11,6 +11,7 @@ import random from '../../assets/d4667c5475734c188fd2738e446bde0b~c5_1080x1080.j
 
 const Player = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const { id } = useParams();
   const [imageUrl, setImageUrl] = useState("");
   const [author, setAuthor] = useState("");
@@ -129,6 +130,10 @@ const Player = () => {
   
 
   const handleAddComment = async (e) => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
     e.preventDefault();
     try {
       const data = {
@@ -510,6 +515,10 @@ const Player = () => {
   };
 
   const handleLike = async () => {
+    if (!token) {
+        navigate("/login");
+        return;
+    }
     if (isLiking) return;
     setIsLiking(true);
     const userId = getUserIdFromToken();
