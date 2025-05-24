@@ -7,7 +7,7 @@ import { formatDistanceToNow } from 'date-fns';
 import heart_smash from '../../assets/GIFPaint-2--unscreen.gif';
 import placeholder from '../../assets/empty-profile.png';
 import commentsIcon from '../../assets/svgviewer-png-output (2).png';
-import random from '../../assets/d4667c5475734c188fd2738e446bde0b~c5_1080x1080.jpeg';
+import random from '../../assets/000000.png';
 
 const Player = () => {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ const Player = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
   const [comments, setComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(true)
   const [numComments, setNumComments] = useState(0)
   const [newComment, setNewComment] = useState("");
   const [audio, setAudio] = useState(1);
@@ -166,6 +167,7 @@ const Player = () => {
 
   const fetchComments = async () => {
     if (!currentImageId) return;
+    setLoadingComments(true)
   
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/get-comments/${currentImageId}`, {
@@ -179,6 +181,8 @@ const Player = () => {
       }
     } catch (error) {
       console.error("error:", error);
+    } finally {
+      setLoadingComments(false)
     }
   };
   
@@ -345,7 +349,26 @@ const Player = () => {
   const handleScroll = () => {
     const currentTime = Date.now();
     if (currentTime - lastScrollTime >= 1000 && !loading && !isAnimating) {
-      setTimeout(() => setImageUrl("https://webdi.fr/img/couleurs/000000.png"), 500);
+      setProgress(0)
+      setAuthor(null)
+      setDate(null)
+      setComments(0)
+      setAudio(null)
+      setSongname(null)
+      setIsPlaying(true)
+      setNumComments(0)
+      setIsLiked(null)
+      setLikes(0)
+      setTitle(null)
+      setTags(null)
+      setPicture(null)
+      setLoadingComments(true)
+
+      setTimeout(() => {
+        setIsImage(false);
+        setImageUrl(null);
+      }, 100);
+
       setIsScrolling(true);
       setIsAnimating(true);
       setTimeout(() => {
@@ -366,7 +389,26 @@ const Player = () => {
   const handleScrollUp = () => {
     const currentTime = Date.now();
     if (currentTime - lastScrollTime >= 1000 && !loading && !isAnimating && historyStack.current.length > 0) {
-      setTimeout(() => setImageUrl("https://webdi.fr/img/couleurs/000000.png"), 500);
+      setProgress(0)
+      setAuthor(null)
+      setDate(null)
+      setComments(0)
+      setAudio(null)
+      setSongname(null)
+      setIsPlaying(true)
+      setNumComments(0)
+      setIsLiked(null)
+      setLikes(0)
+      setTitle(null)
+      setTags(null)
+      setPicture(null)
+       setLoadingComments(true)
+
+      setTimeout(() => {
+        setIsImage(false);
+        setImageUrl(null);
+      }, 100);
+
       setIsScrollingUp(true);
       setIsAnimating(true);
       setTimeout(() => {
@@ -602,40 +644,56 @@ const Player = () => {
             <svg className="close-button-com" onClick={toggleCommentsModal} fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M202.82861,197.17188a3.99991,3.99991,0,1,1-5.65722,5.65624L128,133.65723,58.82861,202.82812a3.99991,3.99991,0,0,1-5.65722-5.65624L122.343,128,53.17139,58.82812a3.99991,3.99991,0,0,1,5.65722-5.65624L128,122.34277l69.17139-69.17089a3.99991,3.99991,0,0,1,5.65722,5.65624L133.657,128Z"></path> </g></svg>
           </div>
           <div className="comments-list">
-          {comments.length > 0 ? (
-            comments.map((comment, index) => {
-              const pic = comment.user?.picture || placeholder;
-              const username = comment.user?.username;
-
-              return (
-                <div key={index} className="comment-item">
-                  <div>
-                    <img 
-                      className="comment-picture" 
-                      src={pic}
-                      onClick={() => {
-                        if (username) takeToUserUsingComments(username);
-                      }}
-                    />
-                    <div className="cmt-d">
-                      <div>
-                        <p className="comment-author">
-                          {username ? `@${username}` : "deleted account"}
-                        </p>
-                        <p className="comment-date">
-                          {comment.date
-                            ? `${formatDistanceToNow(new Date(comment.date))} ago`
-                            : ''}
-                        </p>
+            {loadingComments
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="skeleton">
+                    <div className="comment-picture" />
+                    <div className="cmt-div">
+                      <div className="lineC short" />
+                      <div className="lineC long" />
+                      <div className="lineC long" />
+                      <div className="line-wrap">
+                        <div className="lineC short" />
+                        <div className="lineC short" />
                       </div>
-                      <p className="comment-text">{comment.text}</p>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          ) : null}
+                ))
+              : comments.length > 0
+              ? comments.map((comment, index) => {
+                  const pic = comment.user?.picture || placeholder;
+                  const username = comment.user?.username;
+
+                  return (
+                    <div key={index} className="comment-item">
+                      <div>
+                        <img
+                          className="comment-picture"
+                          src={pic}
+                          onClick={() => {
+                            if (username) takeToUserUsingComments(username);
+                          }}
+                        />
+                        <div className="cmt-d">
+                          <div>
+                            <p className="comment-author">
+                              {username ? `@${username}` : "deleted account"}
+                            </p>
+                            <p className="comment-date">
+                              {comment.date
+                                ? `${formatDistanceToNow(new Date(comment.date))} ago`
+                                : ""}
+                            </p>
+                          </div>
+                          <p className="comment-text">{comment.text}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              : null}
           </div>
+
           <form onSubmit={handleAddComment} className="comment-form">
             <input
               type="text"

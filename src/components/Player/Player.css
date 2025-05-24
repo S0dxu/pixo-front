@@ -62,7 +62,7 @@
     border-radius: 100%;
     bottom: -8px;
     position: absolute;
-    display: none; /* to remove later */
+    display: none; 
 }
 
 .player svg path {
@@ -341,11 +341,11 @@
 }
 
 .gradient-overlay {
-    cursor: pointer;    /* evidenzia che è interattivo */
+    cursor: pointer;
 }
   
 .gradient-overlay .progress-bar {
-    transition: none;   /* perché il seek è già “istantaneo” */
+    transition: none;
 }
 
 @keyframes grow {
@@ -435,6 +435,84 @@
     font-size: 13px;
     font-weight: 500;
 }
+
+.comments-list .skeleton .cmt-div {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    width: 100%;
+}
+
+.comments-list .skeleton {
+  gap: 12px;
+  margin-top: 15px;
+  display: flex;
+  width: 110%;
+}
+
+.skeleton .comment-picture,
+.skeleton .lineC {
+  background: #272727 !important;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  animation: shimmer 1s infinite;
+}
+
+.skeleton .line-wrap {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+}
+
+.skeleton .line-wrap .lineC.short {
+    width: 15%;
+}
+
+.skeleton .comment-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeleton .lineC {
+  height: 15px;
+    margin-bottom: 10px;
+}
+
+.skeleton .lineC.short {
+  width: 50%;
+}
+
+.skeleton .lineC.long {
+  width: 80%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.skeleton .comment-picture,
+.skeleton .line {
+  background: linear-gradient(
+    to right,
+    #e0e0e0 0%,
+    #f0f0f0 50%,
+    #e0e0e0 100%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.2s infinite;
+}
+
 
 @keyframes scroll-to {
     0% {
@@ -862,10 +940,6 @@
     align-items: center;
 }
 
-.comments-list {
-    overflow-y: auto;
-}
-
 .comment-item {
     border-bottom: 1px solid #1f1f1f;
     padding: 0px 0 10px 0;
@@ -947,6 +1021,15 @@
         width: 400px;
         border: 1px solid #dadada;
     }
+
+    .comments-list {
+        overflow-y: auto;
+    }
+
+    .skeleton .comment-picture,
+    .skeleton .lineC {
+        background: #e0e0e0 !important;
+    }   
 
     .comment-form {
         background-color: #f9f9f9;
