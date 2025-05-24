@@ -40,7 +40,7 @@ const Player = () => {
   const pressTimer = useRef(null);
   const [isLongPress, setIsLongPress] = useState(false);
   const [IsOpacity, setOpacity] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isImage, setIsImage] = useState(true);
   const [picture, setPicture] = useState(null);
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
@@ -353,7 +353,6 @@ const Player = () => {
       setAuthor(null)
       setDate(null)
       setComments(0)
-      setAudio(null)
       setSongname(null)
       setIsPlaying(true)
       setNumComments(0)
@@ -393,7 +392,6 @@ const Player = () => {
       setAuthor(null)
       setDate(null)
       setComments(0)
-      setAudio(null)
       setSongname(null)
       setIsPlaying(true)
       setNumComments(0)
@@ -402,7 +400,7 @@ const Player = () => {
       setTitle(null)
       setTags(null)
       setPicture(null)
-       setLoadingComments(true)
+      setLoadingComments(true)
 
       setTimeout(() => {
         setIsImage(false);
@@ -726,6 +724,7 @@ const Player = () => {
                     <video
                       key={currentImageId}
                       autoPlay
+                      playsInline
                       loop
                       ref={videoRef}
                       onLoadedMetadata={() => {
